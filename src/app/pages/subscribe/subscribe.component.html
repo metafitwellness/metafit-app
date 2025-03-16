@@ -1,0 +1,109 @@
+<app-header></app-header>
+<div class="main">
+  <div class="subscribe-container">
+    <div class="pricing-card">
+      <div class="card-header">
+        <div class="card-btn-parent">
+          <button id="basic-plan" class="active plan-button">Monthly Subscription Plan</button>
+          <button *ngIf="false" id="premium-plan">Premium</button>
+          <div class="overlay"></div>
+        </div>
+      </div>
+      <div class="card-body">
+
+        <div id="card-basic-plan" class="active">
+          <div class="card-plans">
+            <span class="plan-tag">Basic</span>
+            <div class="card-plan">
+              <h3 class="plan-title">Monthly Plan</h3>
+              <h3 class="plan-price">₹1999</h3>
+            </div>
+            <!-- <span class="gst-add">+ 18% GST Additional</span>
+            <span class="gst-add">Amount Charged Monthly: ₹1770</span> -->
+          </div>
+          <div class="card-content">
+            <div class="card-lists">
+              <div class="card-list">
+                <img src="../../../assets/images/tick.svg" alt="">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              </div>
+              <div class="card-list">
+                <img src="../../../assets/images/tick.svg" alt="">
+                Nulla facilisi. Vivamus tincidunt arcu at mi cursus, a volutpat nisi volutpat.
+              </div>
+              <div class="card-list">
+                <img src="../../../assets/images/tick.svg" alt="">
+                Curabitur vulputate diam nec ante hendrerit, nec consequat elit bibendum.
+              </div>
+              <div class="card-list">
+                <img src="../../../assets/images/tick.svg" alt="">
+                Integer sit amet erat urna. Proin ullamcorper bibendum nisl non suscipit.
+              </div>
+              <div class="card-list">
+                <img src="../../../assets/images/tick.svg" alt="">
+                Sed tristique neque eget nisi posuere, ac egestas risus fringilla.
+              </div>
+              <div class="card-list">
+                <img src="../../../assets/images/tick.svg" alt="">
+                Duis pretium lorem et magna egestas, at euismod lorem varius.
+              </div>
+
+            </div>
+          </div>
+          <div class="card-button">
+            <button (click)="getSubscription()">SUBSCRIBE NOW</button>
+          </div>
+          <div class="card-button verify-payment" *ngIf="firstClick">
+            <button (click)="verifyPayment()">VERIFY PAYMENT</button>
+          </div>
+        </div>
+        <div id="card-standard-plan" *ngIf="false">
+          <div class="card-plans">
+            <span class="plan-tag">Standard</span>
+            <div class="card-plan">
+              <h3 class="plan-title">Icon Sets</h3>
+              <h3 class="plan-price">$120</h3>
+            </div>
+          </div>
+          <div class="card-content">
+            <p>Up to 100 creative & professional icons + two color versions/themes per month</p>
+            <div class="card-lists">
+              <div class="card-list"><img src="../../../assets/images/tick.svg" alt="">Included source
+                files
+              </div>
+              <div class="card-list"><img src="../../../assets/images/tick.svg" alt="">Converted to
+                responsive components</div>
+            </div>
+          </div>
+          <div class="card-button">
+            <button>Add to cart</button>
+          </div>
+        </div>
+        <div id="card-premium-plan" *ngIf="false">
+          <div class="card-plans">
+            <span class="plan-tag">Premium</span>
+            <div class="card-plan">
+              <h3 class="plan-title">Icon Sets</h3>
+              <h3 class="plan-price">$180</h3>
+            </div>
+          </div>
+          <div class="card-content">
+            <p>Up to 200 creative & professional icons + four color versions/themes</p>
+            <div class="card-lists">
+              <div class="card-list"><img src="../../../assets/images/tick.svg" alt="">Included source
+                files
+              </div>
+              <div class="card-list"><img src="../../../assets/images/tick.svg" alt="">Converted to
+                responsive components</div>
+            </div>
+          </div>
+          <div class="card-button">
+            <button>Add to cart</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

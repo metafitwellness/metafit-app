@@ -1,0 +1,10 @@
+<div class="modal">
+  <div class="modalIcon">
+    <img [src]="'../../../assets/images/'+data.icon" />
+  </div>
+  <div class="modalData">
+    <h2>{{ data.title }}</h2>
+    <h4 [innerHTML]="data.data"></h4>
+    <button *ngIf="data.button" (click)="navigatePath(data.buttonPath)">{{ data.button }}</button>
+  </div>
+</div>

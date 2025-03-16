@@ -1,0 +1,72 @@
+<app-header></app-header>
+<div class="main" *ngIf="!isAdmin && this.userEnabled">
+  <h1 class="dashbaordHeading">Dashboard</h1>
+  <div class="dashboard" *ngIf="false">
+    <div class="dashboardBlock">
+      <mat-icon>monetization_on</mat-icon>
+      <h2>{{userDetails.currency | uppercase}} {{userDetails.creditLimit | number:'1.2-2'}}</h2>
+      <span>Total Limit</span>
+    </div>
+    <div class="usesBar">
+      <div class="row">
+        <div class="">
+          Used Limit <span>{{userDetails.currency | uppercase}} {{usedLimit | number:'1.2-2'}}</span>
+        </div>
+        <div class="">
+          Available Limit <span>{{userDetails.currency | uppercase}} {{availableLimit | number:'1.2-2'}}</span>
+        </div>
+      </div>
+      <div class="bar">
+        <div [style]="{ 'width': this.usedPer+'%' }"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-buttons">
+    <a mat-fab extended routerLink="/manage-subscriptions">
+      <mat-icon>card_membership</mat-icon>
+      My Subscriptions
+    </a>
+    <a mat-fab extended routerLink="/settings">
+      <mat-icon>badge</mat-icon>
+      Profile
+    </a>
+  </div>
+</div>
+
+
+
+<div class="main" *ngIf="isAdmin">
+  <h1 class="dashbaordHeading">Dashboard</h1>
+
+  <div class="dashboard-buttons">
+    <a mat-fab extended routerLink="/hotels">
+      <mat-icon>group</mat-icon>
+      Vendors
+    </a>
+    <a mat-fab extended routerLink="/all-subscriptions">
+      <mat-icon>payments</mat-icon>
+      Subscriptions
+    </a>
+    <a mat-fab extended routerLink="/cities">
+      <mat-icon>pin_drop</mat-icon>
+      Manage Cities
+    </a>
+    <a mat-fab extended routerLink="/segments">
+      <mat-icon>category</mat-icon>
+      Manage Segments
+    </a>
+  </div>
+  <div class="dashboard" *ngIf="false">
+    <div class="dashboardBlock">
+      <mat-icon>group</mat-icon>
+      <h2>{{totalCustomers}}</h2>
+      <span>Total Active Customers</span>
+    </div>
+    <div class="dashboardBlock">
+      <mat-icon>monetization_on</mat-icon>
+      <h2>{{userDetails.currency | uppercase}} {{loanAmount | number:'1.2-2'}}</h2>
+      <span>Total Loan Amount</span>
+    </div>
+  </div>
+</div>

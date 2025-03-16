@@ -1,0 +1,62 @@
+.customerInformationSystem {
+  & .pageHeader{
+    color: #000;
+    font-size: 26px;
+  }
+  & .mat-table {
+    width: 100%;
+    border: 1px solid #d5d7d9;
+    border-radius: 4px;
+  }
+  & .mat-header-row {
+    background: #edeff1;
+    height: 36px;
+    box-shadow: inset 0px -0.5px 0px #bdbdbd;
+
+    & .mat-header-cell {
+      color: #3b3c3c;
+    }
+  }
+  & .filterBox {
+    display: flex;
+    column-gap: 16px;
+    margin-bottom: 16px;
+    position: relative;
+    & label {
+      display: block;
+      color: #00122c;
+    }
+    & input,
+    select {
+      padding: 10px;
+      color: #919293;
+      border: 1px solid #d5d7d9;
+      border-radius: 4px;
+      background: #fff;
+    }
+  }
+  & .addInvoice{
+    background-color: #46A1DA;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    & mat-icon, span{
+      color: #fff;
+    }
+    &:hover{
+      opacity: 0.8;
+    }
+  }
+  & .invoiceButtonContainer{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+  & .invoiceNumber{
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,223 @@
+<div mat-dialog-actions class="button-actions">
+  <button mat-button (click)="closeModal()">Close</button>
+</div>
+
+<h1 mat-dialog-title>{{ hotelData.user_name }}</h1>
+
+<div mat-dialog-content>
+  <!-- User Information Section (Grouped) -->
+  <div class="user-details">
+    <div class="info-row">
+      <div class="info-column">
+        <p><strong>Segment:</strong> {{ hotelData.segment_name }}</p>
+        <p><strong>User Name:</strong> {{ hotelData.user_name }}</p>
+      </div>
+      <div class="info-column">
+        <p><strong>Email ID:</strong> {{ hotelData.emailId || 'N/A' }}</p>
+        <p><strong>Phone Number:</strong> {{ hotelData.phoneNumber }}</p>
+      </div>
+      <div class="info-column">
+        <p><strong>Added On:</strong> {{ hotelData.addedOn }}</p>
+        <p><strong>Updated On:</strong> {{ hotelData.updatedOn }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Address Section (Grouped) -->
+  <div class="user-details">
+    <div class="info-row">
+      <div class="info-column">
+        <p><strong>Home Address:</strong> {{ hotelData.homeAddress || 'N/A' }}</p>
+      </div>
+      <div class="info-column">
+        <p><strong>Office Address:</strong> {{ hotelData.officeAddress || 'N/A' }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Qualification Section (Grouped) -->
+  <div class="user-details">
+    <div class="info-row">
+      <div class="info-column">
+        <p><strong>Designation:</strong> {{ hotelData.Designation || 'N/A' }}</p>
+        <p><strong>Degree:</strong> {{ hotelData.Degree || 'N/A' }}</p>
+      </div>
+      <div class="info-column">
+        <p><strong>Passout Year:</strong> {{ hotelData.passoutYear || 'N/A' }}</p>
+        <p><strong>Years of Experience:</strong> {{ hotelData.yearsOfExperience || 'N/A' }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Photos Section (Grouped) -->
+  <div class="user-details">
+    <div class="info-row">
+      <div class="info-column">
+        <p><strong>Self Photo:</strong></p>
+        <img *ngIf="hotelData.self_photo" [src]="filePath + hotelData.self_photo" alt="Self Photo" class="profile-photo"
+          (click)="openImageInNewTab(filePath + hotelData.self_photo)">
+      </div>
+      <div class="info-column">
+        <p><strong>Aadhar Photo:</strong></p>
+        <img *ngIf="hotelData.aadhar_photo" [src]="filePath + hotelData.aadhar_photo" alt="Aadhar Photo"
+          class="profile-photo" (click)="openImageInNewTab(filePath + hotelData.aadhar_photo)">
+      </div>
+      <div class="info-column">
+        <p><strong>Clinic Photo:</strong></p>
+        <img *ngIf="hotelData.clinic_photo" [src]="filePath + hotelData.clinic_photo" alt="Clinic Photo"
+          class="profile-photo" (click)="openImageInNewTab(filePath + hotelData.clinic_photo)">
+      </div>
+    </div>
+    <div class="info-row">
+      <div class="info-column">
+        <p><strong>Pan Card Front:</strong></p>
+        <img *ngIf="hotelData.pan_card_photo_front" [src]="filePath + hotelData.pan_card_photo_front"
+          alt="Pan Card Front" class="profile-photo"
+          (click)="openImageInNewTab(filePath + hotelData.pan_card_photo_front)">
+      </div>
+    </div>
+  </div>
+
+  <!-- Bank Information Section (Grouped) -->
+  <div class="user-details">
+    <div class="info-row">
+      <div class="info-column">
+        <p><strong>Bank Name:</strong> {{ hotelData.bank_name || 'N/A' }}</p>
+      </div>
+      <div class="info-column">
+        <p><strong>Bank Account:</strong> {{ hotelData.bank_ac || 'N/A' }}</p>
+      </div>
+      <div class="info-column">
+        <p><strong>Bank IFSC:</strong> {{ hotelData.bank_ifsc || 'N/A' }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Social Media Links Section (Grouped) -->
+  <!-- Social Media Links Section -->
+  <div class="user-details">
+    <p><strong>Social Media:</strong></p>
+    <ul class="social-media-list">
+      <li *ngIf="hotelData.instagram_url">
+        <a href="{{ hotelData.instagram_url }}" target="_blank">
+          <i class="fa fa-instagram"></i> Instagram
+        </a>
+      </li>
+      <li *ngIf="hotelData.linkedin_url">
+        <a href="{{ hotelData.linkedin_url }}" target="_blank">
+          <i class="fa fa-linkedin"></i> LinkedIn
+        </a>
+      </li>
+      <li *ngIf="hotelData.youtube_url">
+        <a href="{{ hotelData.youtube_url }}" target="_blank">
+          <i class="fa fa-youtube"></i> YouTube
+        </a>
+      </li>
+      <li *ngIf="hotelData.facebook_url">
+        <a href="{{ hotelData.facebook_url }}" target="_blank">
+          <i class="fa fa-facebook"></i> Facebook
+        </a>
+      </li>
+      <li *ngIf="hotelData.website_url">
+        <a href="{{ hotelData.website_url }}" target="_blank">
+          <i class="fa fa-globe"></i> Website
+        </a>
+      </li>
+      <li *ngIf="hotelData.google_map_url">
+        <a href="{{ hotelData.google_map_url }}" target="_blank">
+          <i class="fa fa-map-marker"></i> Google Maps
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Alternative Contact and Referral Section -->
+  <div class="user-details">
+    <p><strong>Alternative Contact:</strong> {{ hotelData.alternative_contact || 'N/A' }}</p>
+    <p><strong>Referral:</strong> {{ hotelData.referral || 'N/A' }}</p>
+  </div>
+
+  <div class="user-details">
+    <p><strong>Plan:</strong> {{ hotelData.planId }}</p>
+    <p><strong>Onboarding Amount:</strong> {{ hotelData.onboardingAmount }}/-</p>
+  </div>
+
+
+  <!-- Verification Status Section -->
+  <div class="user-details">
+    <p><strong>Verification Status: </strong>
+      <span class="badge initiated-badge" *ngIf="hotelData.verificationStatus === 'initiated'">
+        <mat-icon>access_time</mat-icon> Initiated
+      </span>
+      <span class="badge pending-badge" *ngIf="hotelData.verificationStatus === 'pending'">
+        <mat-icon>hourglass_empty</mat-icon> Pending
+      </span>
+      <span class="badge approved-badge" *ngIf="hotelData.verificationStatus === 'approved'">
+        <mat-icon>check_circle</mat-icon> Approved
+      </span>
+      <span class="badge rejected-badge" *ngIf="hotelData.verificationStatus === 'rejected'">
+        <mat-icon>cancel</mat-icon> Rejected
+      </span>
+    </p>
+    <p *ngIf="hotelData.verificationStatus === 'rejected'">
+      <strong>Rejection Reason:</strong> {{ hotelData.verificationRemark || 'N/A' }}
+    </p>
+  </div>
+
+  <!-- Subscription Section -->
+  <h3>Subscriptions</h3>
+  <table mat-table [dataSource]="subscriptions">
+    <ng-container matColumnDef="subscriptionId">
+      <th mat-header-cell *matHeaderCellDef>Subscription ID</th>
+      <td mat-cell *matCellDef="let subscription">{{ subscription.subscriptionId }}</td>
+    </ng-container>
+    <ng-container matColumnDef="plan">
+      <th mat-header-cell *matHeaderCellDef>Plan</th>
+      <td mat-cell *matCellDef="let subscription">
+        <span *ngIf="hotelData.onboardingAmount > 0">
+          1999/- Monthly ({{ subscription.planId }})
+        </span>
+        <span *ngIf="hotelData.onboardingAmount == 0">
+          FREE
+        </span>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="startDate">
+      <th mat-header-cell *matHeaderCellDef>Start Date</th>
+      <td mat-cell *matCellDef="let subscription">{{ subscription.dateAdded }}</td>
+    </ng-container>
+    <ng-container matColumnDef="paymentId">
+      <th mat-header-cell *matHeaderCellDef>Payment ID</th>
+      <td mat-cell *matCellDef="let subscription">{{ subscription.paymentId }}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['subscriptionId', 'startDate', 'plan', 'paymentId']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['subscriptionId', 'startDate', 'plan', 'paymentId']"></tr>
+  </table>
+
+  <div class="profileForm" *ngIf="hotelData.verificationStatus === 'pending'">
+    <h2>Update Profile Status</h2>
+    <!-- Select for Reject or Approve -->
+    <div>
+      <mat-form-field>
+        <mat-label>Verification Status</mat-label>
+        <mat-select [(value)]="verificationStatus" (selectionChange)="onVerificationStatusChange()">
+          <mat-option value="approved">Approve</mat-option>
+          <mat-option value="rejected">Reject</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Verification Remark (only visible if 'Reject' is selected) -->
+      <div *ngIf="verificationStatus === 'rejected'">
+        <mat-form-field>
+          <mat-label>Verification Remark</mat-label>
+          <textarea matInput [(ngModel)]="verificationRemark" required></textarea>
+        </mat-form-field>
+      </div>
+
+      <!-- Submit Button -->
+      <button mat-raised-button color="primary" (click)="submitForm()" [disabled]="!isFormValid()">Submit</button>
+    </div>
+  </div>
+
+</div>

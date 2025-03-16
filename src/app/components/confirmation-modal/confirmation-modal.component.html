@@ -1,0 +1,29 @@
+<div class="modal">
+  <div class="heading" *ngIf="data.title">
+    {{data.title | titlecase}}
+  </div>
+  <div class="heading" *ngIf="data.title != 'delete' && !custom">
+    {{data.status | titlecase}} Invoice?
+  </div>
+  <div class="heading" *ngIf="data.title == 'delete' && !custom">
+    Delete {{data.type == 'invoice'?'Invoices':'Customer'}}?
+  </div>
+  <div  mat-dialog-close class="close"><mat-icon>close</mat-icon></div>
+  <p  *ngIf="data.title != 'delete' && data.status != 'reject' && !custom">Are you sure to proceed and {{ data.status}} the invoice?</p>
+
+  <p  *ngIf="data.title == 'delete' && data.type == 'invoice' && !custom">Are you sure to proceed and delete the invoices?</p>
+  <p  *ngIf="data.title == 'delete' && data.type != 'invoice' && !custom">Are you sure to proceed and delete the customer account and the invoices?</p>
+  <p  *ngIf="custom">{{ data?.subText }}</p>
+  <p  *ngIf="custom" class="subText2">{{ data?.subText2 }}</p>
+
+  <div class="form-group" *ngIf="data.status == 'reject'" >
+    <label>Enter Reject Reason</label>
+    <input type="text" placeholder="Enter Reason" [(ngModel)]="reason" />
+  </div>
+
+  <div class="buttons">
+    <button mat-dialog-close class="cancel">Cancel</button>
+    <button *ngIf="data.title != 'delete'" class="confirm" [disabled]="!(reason) && data.status == 'reject'" (click)="confirm()">{{ confirmButtonText }}</button>
+    <button *ngIf="data.title == 'delete'" class="confirm" [disabled]="!(reason) && data.status == 'reject'" (click)="confirm()">Delete {{data.type == 'invoice'?'Invoices':'Customer'}}</button>
+  </div>
+</div>

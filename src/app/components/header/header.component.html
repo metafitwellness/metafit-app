@@ -1,0 +1,98 @@
+<div class="header">
+  <div class="mobile-toggle-menu" (click)="toggleMenu()">
+    <mat-icon>menu</mat-icon>
+  </div>
+  <div class="logoContainer">
+    <a href="https://metafitwellness.com">
+      <img src="../../../assets/images/logo-white.png" />
+    </a>
+  </div>
+  <div class="userDetails">
+    <mat-slide-toggle *ngIf="false && !isAdmin && userEnabled" (change)="updateStatus($event)"
+      [(ngModel)]="isOnline">Status : <b class="online-status {{ isOnline?'online':'' }}">{{ isOnline ? 'Online' :
+        'Offline' }}</b></mat-slide-toggle>
+    <div class="userDetailsBlock">
+      <span>Welcome</span>
+      <div class="">{{ userDetails.name | titlecase }}</div>
+    </div>
+  </div>
+</div>
+<div class="menuwrapper" (click)="toggleMenu()" *ngIf="openMenu"></div>
+<div class="slideBar nav  {{openMenu? 'openMenu': 'closeMenu'}}">
+  <mat-list>
+    <mat-list-item class="navList" routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+      true}">
+      <mat-icon>insights</mat-icon>
+      Dashboard
+    </mat-list-item>
+    <mat-list-item *ngIf="!isAdmin" class="navList" routerLink="/settings" routerLinkActive="active">
+      <mat-icon>badge</mat-icon>
+      Profile
+    </mat-list-item>
+    <mat-list-item *ngIf="!isAdmin" class="navList" routerLink="/manage-subscriptions" routerLinkActive="active">
+      <mat-icon>card_membership</mat-icon>
+      My Subscriptions
+    </mat-list-item>
+
+    <mat-list-item *ngIf="isAdmin" class="navList" routerLink="/hotels" routerLinkActive="active">
+      <mat-icon>groups</mat-icon>
+      Vendors
+    </mat-list-item>
+    <mat-list-item *ngIf="isAdmin" class="navList" routerLink="/hotels" [queryParams]="{accountStatus: 'onboarded'}"
+      routerLinkActive="active">
+      <mat-icon>info</mat-icon>
+      Onboarded Vendors (Profile Pending)
+    </mat-list-item>
+    <mat-list-item *ngIf="isAdmin" class="navList" routerLink="/hotels" [queryParams]="{status: 'pending'}"
+      routerLinkActive="active">
+      <mat-icon>info</mat-icon>
+      Pending Vendors
+    </mat-list-item>
+    <mat-list-item *ngIf="isAdmin" class="navList" routerLink="/hotels" [queryParams]="{status: 'rejected'}"
+      routerLinkActive="active">
+      <mat-icon>cancel</mat-icon>
+      Rejected Vendors
+    </mat-list-item>
+    <mat-list-item *ngIf="isAdmin" class="navList" routerLink="/hotels" [queryParams]="{status: 'approved'}"
+      routerLinkActive="active">
+      <mat-icon>groups</mat-icon>
+      Approved Vendors
+    </mat-list-item>
+    <mat-list-item *ngIf="isAdmin" class="navList" routerLink="/hotels" [queryParams]="{accountStatus: 'verified'}"
+      routerLinkActive="active">
+      <mat-icon>groups</mat-icon>
+      Pending Subscription
+    </mat-list-item>
+    <mat-list-item *ngIf="isAdmin" class="navList" routerLink="/hotels" [queryParams]="{accountstatus: 'active'}"
+      routerLinkActive="active">
+      <mat-icon>groups</mat-icon>
+      Active Vendors
+    </mat-list-item>
+    <mat-list-item *ngIf="isAdmin" class="navList" routerLink="/hotels-otp-pending" routerLinkActive="active">
+      <mat-icon>info</mat-icon>
+      Vendors OTP Pending
+    </mat-list-item>
+    <mat-list-item *ngIf="isAdmin" class="navList" routerLink="/onboarding-amount" routerLinkActive="active">
+      <mat-icon>payments</mat-icon>
+      Onboarding Payments
+    </mat-list-item>
+    <mat-list-item *ngIf="isAdmin" class="navList" routerLink="/all-subscriptions" routerLinkActive="active">
+      <mat-icon>payments</mat-icon>
+      Subscriptions
+    </mat-list-item>
+    <mat-list-item *ngIf="isAdmin" class="navList" routerLink="/cities" routerLinkActive="active">
+      <mat-icon>pin_drop</mat-icon>
+      Manage Cities
+    </mat-list-item>
+    <mat-list-item *ngIf="isAdmin" class="navList" routerLink="/segments" routerLinkActive="active">
+      <mat-icon>category</mat-icon>
+      Manage Segments
+    </mat-list-item>
+
+    <mat-list-item class="navList" (click)="logout()">
+      <mat-icon>power_settings_new</mat-icon>
+      Logout
+    </mat-list-item>
+
+  </mat-list>
+</div>

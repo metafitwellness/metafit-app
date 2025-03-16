@@ -1,0 +1,65 @@
+<div class="login">
+  <div class="aboutusBtn">
+    <a [routerLink]="'../about-us'">About Us</a>
+  </div>
+  <div class="loginBlock">
+    <div class="icon">
+      <a href="https://metafitwellness.com">
+        <img src="../../../assets/images/logo.png" />
+      </a>
+    </div>
+    <div class="loginContent">
+      <h2>Credit Invoice System</h2>
+      <span *ngIf="!firstLogin && !resetPass">Enter your credentials to log in</span>
+      <span *ngIf="firstLogin">Enter new password to log in</span>
+      <span *ngIf="resetPass">Enter your email to receive new password</span>
+      <div class="form" *ngIf="!firstLogin && !resetPass">
+        <div class="form-group">
+          <input #emailIn="ngModel" (keyup)="validate()" type="email" placeholder="Enter your email" [(ngModel)]="email"
+            [email]="true">
+          <div class="error" *ngIf="emailIn.touched && emailIn.invalid">Enter Valid Email Id</div>
+          <div class="error" *ngIf="formError">{{ formError }}</div>
+        </div>
+        <div class="form-group">
+          <input #passwordIn="ngModel" (keyup)="validate()" type="password" placeholder="Enter your password"
+            [(ngModel)]="password">
+          <span class="forgotPass" (click)="forgotPassword()">Forgot Password?</span>
+        </div>
+        <div class="form-group">
+          <button (click)="doLogin()" [disabled]="!( isValid && emailIn.valid && passwordIn.valid )">LOG IN</button>
+        </div>
+      </div>
+
+      <div class="form" *ngIf="firstLogin">
+        <div class="form-group">
+          <input #cPasswordIn="ngModel" (keyup)="validate2()" type="password" placeholder="Enter New Password"
+            [(ngModel)]="cPassword">
+          <div class="error" *ngIf="cPasswordIn.touched && cPasswordIn.invalid">Enter New Password</div>
+          <div class="error" *ngIf="formError">{{ formError }}</div>
+        </div>
+        <div class="form-group">
+          <input #cPasswordIn2="ngModel" (keyup)="validate2()" type="password" placeholder="Confirm New Password"
+            [(ngModel)]="cPassword2">
+          <div class="error" *ngIf="!(cPassword == cPassword2) && cPasswordIn.touched && cPasswordIn2.touched">New
+            Password and confirm password should mathc</div>
+        </div>
+        <div class="form-group">
+          <button (click)="updateLogin()" [disabled]="!(isValid2 )">Change Password</button>
+        </div>
+      </div>
+
+      <div class="form" *ngIf="resetPass">
+        <div class="form-group resetPassword">
+          <input #emailIn="ngModel" (keyup)="validate()" type="email" placeholder="Enter your email" [(ngModel)]="email"
+            [email]="true">
+          <div class="error" *ngIf="emailIn.touched && emailIn.invalid">Enter Valid Email Id</div>
+          <div class="error" *ngIf="formError">{{ formError }}</div>
+        </div>
+        <div class="form-group">
+          <button (click)="resetPassword()" [disabled]="!(email && emailIn.valid)">Request Password Reset</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

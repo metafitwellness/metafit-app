@@ -1,0 +1,112 @@
+<div class="registerContainer">
+  <app-header-register></app-header-register>
+  <div class="register" *ngIf="activeStep == 0 || activeStep == 1 || activeStep == 2">
+    <h2>Create your Account</h2>
+    <app-wizard-steps [steps]="steps" [activeStep]="activeStep"></app-wizard-steps>
+    <div class="registerBlock" *ngIf="activeStep == 0">
+      <h3>Please enter the following information to set up your profile.</h3>
+      <h4>We will use your Phone number to verify your account using OTP</h4>
+      <div class="form-group">
+        <label>Your Name</label>
+        <input #nameIn="ngModel" type="text" placeholder="Your Name" class="form-control" [(ngModel)]="name"
+          [class]="nameIn.touched && nameIn.invalid?'inputErr':''" />
+        <div class="inputErrMsg" *ngIf="nameIn.touched && nameIn.invalid">Enter Valid Name</div>
+      </div>
+      <div class="form-group">
+        <label>Segment</label>
+        <mat-select #segmentIn="ngModel" [(ngModel)]="segment" placeholder="Select Segment" class="phoneCode"
+          [value]="segment" (selectionChange)="updateSegment()">
+          <mat-select-trigger class="mat-select-trigger">
+            <span>{{segmentName}}</span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let segment of segmentList" [value]="segment.id" class="countryInput">
+            {{segment.segement}}
+          </mat-option>
+        </mat-select>
+      </div>
+      <div class="form-group">
+        <label>City</label>
+        <mat-select #cityIn="ngModel" [(ngModel)]="city" placeholder="Select City" class="phoneCode" [value]="city"
+          (selectionChange)="updateCity()">
+          <mat-select-trigger class="mat-select-trigger">
+            <span>{{cityName}}</span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let cityItem of cityList" [value]="cityItem.id" class="countryInput">
+            {{cityItem.city_name}}
+          </mat-option>
+        </mat-select>
+      </div>
+      <div class="form-group">
+        <label>Plan</label>
+        <mat-select #cityIn="ngModel" [(ngModel)]="plan" placeholder="Select Plan" class="phoneCode" [value]="plan"
+          (selectionChange)="updatePlan()">
+          <mat-select-trigger class="mat-select-trigger">
+            <span>{{planName}}</span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let cityItem of plans" [value]="cityItem.id" class="countryInput">
+            {{cityItem.plan}}
+          </mat-option>
+        </mat-select>
+      </div>
+      <div class="form-group">
+        <label>Whatsapp Number</label>
+        <div class="phoneInput firstBlock">
+          <mat-select #countryIn="ngModel" [(ngModel)]="phoneCode" placeholder="Select Extension" class="phoneCode"
+            [value]="phoneCode">
+            <mat-select-trigger class="mat-select-trigger" [class]="phoneCode?.code?'selctedCountry':''">
+              <img class="countrySelectFlag" [src]="pathSource+phoneCode.code?.toLowerCase()+'.png'">
+              <span>{{country.name}}</span>
+            </mat-select-trigger>
+            <mat-option *ngFor="let country of countryList" [value]="country" class="countryInput">
+              <img class="countrySelectFlag" [src]="pathSource+country.code?.toLowerCase()+'.png'" /> {{
+              country.dial_code }}
+            </mat-option>
+          </mat-select>
+          <input type="tel" #phoneIn="ngModel" placeholder="XXXXXXXXXX" class="form-control phoneNumber"
+            [(ngModel)]="phoneNumber" pattern="[1-9]{1}[0-9]{9,11}" />
+        </div>
+        <div class="inputErrMsg" *ngIf="phoneIn.touched && phoneIn.invalid">Enter Valid Phone Number</div>
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input #passwordIn="ngModel" type="password" [minlength]="6" placeholder="Password" class="form-control" [(ngModel)]="password"
+          [class]="passwordIn.touched && passwordIn.invalid?'inputErr':''" />
+        <div class="inputErrMsg" *ngIf="passwordIn.touched && passwordIn.invalid">Enter Password At least 6 characters long</div>
+      </div>
+      <div class="form-group">
+        <label>Referral Code</label>
+        <input #referralIn="ngModel" type="text" placeholder="Referral Code" class="form-control" [(ngModel)]="referral"
+          [class]="referralIn.touched && referralIn.invalid?'inputErr':''" />
+      </div>
+      <div class="continue">
+        <button [disabled]="!(nameIn.valid && phoneIn.valid && phoneNumber && name && phoneCode.code)"
+          (click)="doRegister(1)">Continue</button>
+      </div>
+    </div>
+    <div class="registerBlock otpVerify" *ngIf="activeStep == 1">
+      <h3>Please enter the One Time Password to verify your profile.</h3>
+      <h4>We have shared an OTP on Whatsapp Number {{email}}</h4>
+      <div class="otp-input">
+        <div class="otp-inputs">
+          <input *ngFor="let i of otpLength" type="text" min="0" max="9" minlength="1" maxlength="1"
+            id="otp-input-{{i}}" (keyup)="otpInput($event)" pattern="^[0-9]*$" [(ngModel)]="otp[i]"
+            [class]="invalidOtp? 'invaliOtp': ''" />
+        </div>
+        <div class="invalidOtpText" *ngIf="invalidOtp">
+          Your OTP could not be verified. Please try again.
+        </div>
+        <div *ngIf="invalidOtp">
+          {{attemptLeft}} attempts remaining
+        </div>
+        <div class="resent-otp">
+          Did not receive OTP?
+          <span *ngIf="time > 0">Resend OTP in {{display}}</span>
+          <span *ngIf="time == 0" (click)="resendOtp()" class="btn">Resend OTP</span>
+        </div>
+      </div>
+      <div class="continue">
+        <button [disabled]="!validateOtp()" (click)="verifyOtp()">Verify Account</button>
+      </div>
+    </div>
+  </div>
+</div>

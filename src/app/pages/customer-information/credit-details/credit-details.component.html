@@ -1,0 +1,113 @@
+<div class="credit-details">
+  <div class="actionButtons" *ngIf="(userDetails.accountStatus == 'limit_added' && creditAddedBy != loginManager)">
+    <button class="button buttonReject" (click)="rejectLimit()">
+      <mat-icon>close</mat-icon> Reject
+    </button>
+    <button class="button buttonAccept" (click)="approveLimit()">
+      <mat-icon>check</mat-icon> Approve Credit Limit
+    </button>
+  </div>
+  <div class="card-container">
+    <div class="card card-1">
+      <div class="card-title">
+        Credit Score Ranking
+      </div>
+      <div class="card-body">
+        <div class="score-recommendation">
+          <div class="text-sm">Last Updated on <b>{{lastUpdate}}</b></div>
+          <div class="credit-score-indicator-block">
+            <img class="credit-score-indicator" src="../../../../assets/images/credit/credit-indicator.svg" />
+            <div class="credit-score-indicator-arrow {{'score'+creditScoreCardValue}}">
+              <mat-icon>expand_less</mat-icon>
+              <div class="text-xl">{{creditScore}}</div>
+            </div>
+          </div>
+          <div class="text-sm text-center">Credit Score <span
+              class="{{creditScoreValue | lowercase}}">{{creditScoreValue}}</span></div>
+        </div>
+        <div class="recommendedBlock">
+          <div class="recommendedRange">
+            <mat-icon>thumb_up</mat-icon>
+            <div>
+              Recommended Credit Range
+              <span>{{userDetails.currency | uppercase}} {{ creditRange }}</span>
+            </div>
+          </div>
+          <div class="recommendedRange">
+            <mat-icon>error</mat-icon>
+            <div>Recommended Risk Category
+              <span>Low</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="card card-2">
+      <div class="card-title">
+        Credit Score Ranking
+      </div>
+      <div class="card-body">
+        <div>
+          <i class="color-indicator" [style.background-color]="'#27AE60'"></i>Excellent <span>(731 and above)</span>
+        </div>
+        <div>
+          <i class="color-indicator" [style.background-color]="'#FFF200'"></i>Good <span>(680 - 730)</span>
+        </div>
+        <div>
+          <i class="color-indicator" [style.background-color]="'#FFC50F'"></i>Average <span>(620 - 679)</span>
+        </div>
+        <div>
+          <i class="color-indicator" [style.background-color]="'#D92E2E'"></i>Bad <span>(300 and 619)</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="registerBlock">
+    <div class="form-group">
+      <label>Applied Credit Limit</label>
+      <input [disabled]="doEdit" disabled type="text" placeholder="Applied Credit Limit" class="form-control" readonly
+        [(ngModel)]="appliedLimit" />
+    </div>
+    <div class="form-group">
+      <label>Add Credit Limit</label>
+      <input [disabled]="doEdit" #creditLimitIn="ngModel" type="text" placeholder="Add Credit Limit"
+        class="form-control" [(ngModel)]="creditLimit"
+        [class]="creditLimitIn.touched && !validLimit(creditLimit)?'inputErr':''" />
+      <div class="inputErrMsg" *ngIf="creditLimitIn.touched && !validLimit(creditLimit)">Enter Valid Credit Limit</div>
+    </div>
+    <div class="form-group">
+      <label>Landing Partner</label>
+      <select [disabled]="doEdit" #landingPartnerIn="ngModel" type="text" placeholder="Landing Partner"
+        class="form-control" [(ngModel)]="landingPartner"
+        [class]="landingPartnerIn.touched && landingPartnerIn.invalid?'inputErr':''">
+        <option value="">Select --</option>
+        <option *ngFor="let partner of landingPartners" value="{{ partner.id }}">{{ partner.name }}</option>
+      </select>
+      <div class="inputErrMsg" *ngIf="landingPartnerIn.touched && landingPartnerIn.invalid">Select Landing Partner</div>
+    </div>
+    <div class="form-group">
+      <label>Risk Category</label>
+      <select [disabled]="doEdit" #riskCategoryIn="ngModel" type="text" placeholder="Risk Category" class="form-control"
+        [(ngModel)]="riskCategory" [class]="riskCategoryIn.touched && riskCategoryIn.invalid?'inputErr':''">
+        <option value="">Select --</option>
+        <option value="low">Low</option>
+        <option value="moderate">Moderate</option>
+        <option value="high">High</option>
+      </select>
+      <div class="inputErrMsg" *ngIf="riskCategoryIn.touched && riskCategoryIn.invalid">Select Risk Category</div>
+    </div>
+    <div class="form-group"></div>
+    <div class="form-group formButtons" *ngIf="(userDetails.accountStatus == 'limit_pending')">
+      <button
+        [disabled]="!(creditLimitIn.valid && landingPartnerIn.valid && riskCategoryIn.valid && creditLimit && riskCategory && landingPartner && validLimit(creditLimit))"
+        class="button buttonTransparent" (click)="resetForm()">Cancel</button>
+      <button
+        [disabled]="!(creditLimitIn.valid && landingPartnerIn.valid && riskCategoryIn.valid && creditLimit && riskCategory && landingPartner && validLimit(creditLimit))"
+        class="button buttonApprove" (click)="addCreditLimit()">Add Credit Limit</button>
+    </div>
+  </div>
+</div>

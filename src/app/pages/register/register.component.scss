@@ -1,0 +1,121 @@
+.registerContainer {
+  height: 90vh;
+  overflow: auto;
+  padding-top: 10vh;
+  app-header-register {
+    position: fixed;
+    margin: 0;
+    top: 0;
+    width: 100%;
+    z-index: 9999000;
+  }
+  .register {
+    padding: 32px;
+    background: #fff;
+    width: 40%;
+    display: block;
+    min-height: 76vh;
+    margin: 16px auto;
+    & h2 {
+      font-size: 24px;
+      font-weight: 500;
+      text-align: center;
+    }
+    & .registerBlock {
+      margin-top: 32px;
+      padding: 0 40px;
+      & h3 {
+        font-weight: 400;
+        font-size: 16px;
+        margin: 0;
+      }
+      & h4 {
+        font-size: 12px;
+        color: #747576;
+        margin: 0;
+      }
+      & .phoneInput {
+        &.firstBlock{
+          & .phoneCode {
+            width: 22%;
+          }
+        }
+        display: flex;
+        width: 100%;
+        column-gap: 3%;
+        & .phoneCode {
+          width: 32%;
+          padding: 14px 10px;
+        }
+        & .phoneNumber {
+        }
+      }
+    }
+    & .continue {
+      margin-top: 30px;
+      padding-top: 22px;
+      text-align: right;
+      border-top: 1px solid #f4f5f7;
+
+      & button {
+        background: #46a1da;
+        padding: 12px 22px;
+        border-radius: 6px;
+        outline: none;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        &:active,
+        &:focus,
+        &:hover {
+          opacity: 0.9;
+        }
+        &:disabled {
+          background: #d5d7d9;
+          color: #747576;
+          cursor: not-allowed;
+        }
+      }
+    }
+    & .businessType {
+      padding: 24px 16px;
+      display: inline-block;
+      border-radius: 12px;
+      border: solid thin #d5d7d9;
+      margin-right: 12px;
+      position: relative;
+      cursor: pointer;
+      & input {
+        visibility: hidden;
+        position: absolute;
+      }
+    }
+    & label:has(> input[type="radio"]:checked)  {
+      background: #eaf4fa;
+      border-color: #66acd8;
+    }
+  }
+  & .otpVerify{
+    text-align: center;
+    & h3{
+      font-size: 16px;
+      text-align: center;
+    }
+    & h4{
+      font-size: 12px;
+      text-align: center;
+    }
+    & .continue{
+      text-align: center!important;
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .registerContainer{
+    & .register{
+      width: 100%;
+      padding: 2rem 0;
+    }
+  }
+}

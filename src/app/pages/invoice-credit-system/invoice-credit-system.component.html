@@ -1,0 +1,132 @@
+<app-header></app-header>
+<div class="main">
+  <div class="invoiceCreditSystem">
+    <h2 class="pageHeader">Invoice Credit System</h2>
+    <div class="filterBox">
+      <div class="">
+        <label>Search</label>
+        <input type="text" placeholder="Search by Invoice Number" [(ngModel)]="invoiceFilter" (keyup)="filterTable()" />
+      </div>
+      <div class="">
+        <label>Invoice Status</label>
+        <select [(ngModel)]="invoiceStatus" (change)="filterTable()">
+          <option value="">All</option>
+          <option>Created</option>
+          <option>Rejected</option>
+          <option>Under Review</option>
+          <option>E-Sign Pending</option>
+          <option>Declined</option>
+          <option>Completed</option>
+          <option>Closed</option>
+        </select>
+      </div>
+      <div class="">
+        <label>Payment Status</label>
+        <select [(ngModel)]="paymentStatus" (change)="filterTable()">
+          <option value="">All</option>
+          <option>Pending</option>
+          <option>In Progress</option>
+          <option>Completed</option>
+        </select>
+      </div>
+      <div class="">
+        <div class="invoiceButtonContainer" *ngIf="!isAdmin">
+          <button class="addInvoice" (click)="uploadInvoice()">
+            <mat-icon>add</mat-icon>
+            <span>Add Invoice</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <table mat-table [dataSource]="dataSource" matSort >
+      <template *ngFor="let index of displayedColumns">
+        <ng-container matColumnDef="invoice_status" *ngIf="index == 'invoice_status'">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ index.replace("_", " ").replace("_", " ") |
+            uppercase }} </th>
+          <td mat-cell *matCellDef="let element">
+            <span class="borders" [class]="element.invoiceStatus">
+              <i class="icons" [class]="element.invoiceStatus"></i>
+              {{ element.invoiceStatus.replace("_", " ").replace("_", " ") | titlecase }}
+            </span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="payment_status" *ngIf="index == 'payment_status'">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ index.replace("_", " ").replace("_", " ") |
+            uppercase }} </th>
+          <td mat-cell *matCellDef="let element">
+            <span class="borders" [class]="element.paymentStatus">
+              <i class="icons" [class]="element.paymentStatus"></i>
+              {{ element.paymentStatus?.replace("_", " ").replace("_", " ") | titlecase }}
+            </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="uploaded_on" *ngIf="index == 'uploaded_on'">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ index.replace("_", " ").replace("_", " ") |
+            uppercase }} </th>
+          <td mat-cell *matCellDef="let element">
+            <span >
+              {{ element.uploadedOn | date : 'dd/MM/yyyy' }}
+            </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="customer_name" *ngIf="index == 'customer_name'">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ index.replace("_", " ").replace("_", " ") |
+            uppercase }} </th>
+          <td mat-cell *matCellDef="let element" [style.padding-left]="'10px'" >
+            <span >
+              {{ element.name | titlecase }}
+            </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="ref_number" *ngIf="index == 'ref_number'">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'Reference no'.replace("_", " ").replace("_", " ") |
+            uppercase }} </th>
+          <td mat-cell *matCellDef="let element">
+            <span class="invoiceNumber" routerLink="/invoice-credit-system/{{ element.referenceNo }}">
+              {{ element.referenceNo | uppercase }}
+            </span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="invoice_number" *ngIf="index == 'invoice_number'">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'SUPPLIER '+index.replace("_", " ").replace("_", " ") |
+            uppercase }} </th>
+          <td mat-cell *matCellDef="let element">
+            <span >
+              {{ element.invoiceNo | uppercase }}
+            </span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="invoice_amount" *ngIf="index == 'invoice_amount'">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ index.replace("_", " ").replace("_", " ") |
+            uppercase }} </th>
+          <td mat-cell *matCellDef="let element">
+            <span >
+              {{ element.invoiceAmount | number:'1.2-2' }}
+            </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="{{ index }}" #others
+          *ngIf="!['customer_name', 'ref_number', 'invoice_status', 'payment_status', 'uploaded_on', 'invoice_number', 'invoice_amount'].includes(index)">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ index.replace("_", " ").replace("_", " ") | uppercase }}
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <p *ngIf="element[index]">
+              {{element[index]}}
+            </p>
+            <span *ngIf="!element[index]">N/A</span>
+          </td>
+          <button mat-raised-button #success>Basic</button>
+        </ng-container>
+      </template>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <mat-paginator #paginator [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

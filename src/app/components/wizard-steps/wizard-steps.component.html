@@ -1,0 +1,5 @@
+<div class="wizard">
+  <div class="steps" *ngFor="let step of steps" [class]="step.step <= activeStep?'active':''">
+    <div class="step" >{{step.name}}</div>
+  </div>
+</div>

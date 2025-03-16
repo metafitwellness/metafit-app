@@ -1,0 +1,50 @@
+<div class="modal">
+  <div class="heading">
+    Create user
+  </div>
+  <div  mat-dialog-close class="close"><mat-icon>close</mat-icon></div>
+  <div class="rows">
+    <div class="form-group col-md-6">
+      <label>Customer Name</label>
+      <input type="text" placeholder="Customer Name" #nameIn="ngModel" [(ngModel)]="name" [class.inputError]="nameError" (keyup)="validateForm()" />
+      <span class="error" *ngIf="nameError" >{{nameError}}</span>
+    </div>
+    <div class="form-group col-md-6">
+      <label>Designatory Name</label>
+      <input type="text" placeholder="Designatory Name" #designatoryIn="ngModel" [(ngModel)]="designatory" [class.inputError]="designatoryError" (keyup)="validateForm()" />
+      <span class="error" *ngIf="designatoryError" >{{designatoryError}}</span>
+    </div>
+    <div class="form-group col-md-6">
+      <label>Country</label>
+      <input type="text" placeholder="Country" #countryIn="ngModel" [(ngModel)]="country" [class.inputError]="countryError" (keyup)="validateForm()" />
+      <span class="error" *ngIf="countryError" >{{countryError}}</span>
+    </div>
+    <div class="form-group col-md-6">
+      <label>Currency</label>
+      <input type="text" list="currencyList" placeholder="Currency" #currencyIn="ngModel" [(ngModel)]="currency" [class.inputError]="currencyError" (keyup)="validateForm()" />
+      <span class="error" *ngIf="currencyError" >{{currencyError}}</span>
+      <datalist id="currencyList">
+        <option *ngFor="let curr of currencyList" value="{{curr}}">{{curr}}</option>
+      </datalist>
+    </div>
+    <div class="form-group col-md-6">
+      <label>Credit Limit</label>
+      <input type="number" min="1" placeholder="Credit Limit" #creditLimitIn="ngModel" [(ngModel)]="creditLimit" [class.inputError]="limitError"  (keyup)="validateForm()" />
+      <span class="error" *ngIf="limitError" >{{limitError}}</span>
+    </div>
+    <div class="form-group col-md-6">
+      <label>Expiry Date</label>
+      <input type="date"  #expiryDateIn="ngModel" [(ngModel)]="expiryDate" (change)="validateDate()" [class.inputError]="dateError"  (keyup)="validateForm()" />
+      <span class="error" *ngIf="dateError" >{{dateError}}</span>
+    </div>
+    <div class="form-group col-md-6">
+      <label>Email Id</label>
+      <input placeholder="Email Id" type="email" id="emailIdIn" #emailIdIn="ngModel" [(ngModel)]="emailId" [class.inputError]="emailError" (keyup)="validateEmail()" (keyup)="validateForm()" />
+      <span class="error" *ngIf="emailError" >{{emailError}}</span>
+    </div>
+  </div>
+  <div class="buttons">
+    <button mat-dialog-close class="cancel">Cancel</button>
+    <button class="confirm" [disabled]="!validForm" (click)="confirm()">Create User</button>
+  </div>
+</div>

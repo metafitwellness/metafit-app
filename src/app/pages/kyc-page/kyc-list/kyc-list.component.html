@@ -1,0 +1,40 @@
+<app-header class="noSideBar"></app-header>
+<div class="kycDocument" >
+  <div class="kycProgress">
+    <div *ngFor="let doc of documents.types; let i = index">
+      <div class="progressHead"
+        [class]="(i == 0 || documentComplete[documents.types[0]] == documents.data[documents.types[0]].length)?'active':''">
+        {{ doc.replaceAll('-', ' ') }}
+        <span>{{documentComplete[doc]}} of {{documents.data[doc].length}}</span>
+      </div>
+      <div class="progress-bar"
+        style="--progress-bar-size: {{documents.data[doc].length}}vh; --completed:{{documentComplete[doc]}}vh">
+        <div class="progress-bar-completed"></div>
+      </div>
+    </div>
+    <div>
+      <div class="progressHead" [class]="totalDocuments == totalComplete?'active':''">
+        Finish KYC
+        <span>Click on Finish</span>
+      </div>
+    </div>
+  </div>
+  <div class="kycForm" *ngIf="userDetails.userData.accountStatus == 'kyc_pending'">
+    <div class="blockTitle">
+      Complete KYC
+      <button class="buttonCustom" (click)="exitKyc()">Exit KYC</button>
+    </div>
+
+    <div *ngFor="let doc of documents.types; let i = index">
+      <div class="subBlockTitlle">{{ doc.replaceAll('-', ' ') }}</div>
+      <app-kyc-block [documents]="documents.data[doc]" (updateList)="listUserDocuments()"></app-kyc-block>
+    </div>
+
+
+    <div class="finalAction">
+      <button class="button" (click)="updateUserStatus()" *ngIf="totalDocuments == totalComplete" [disabled]="isRejected">Finish KYC</button>
+    </div>
+  </div>
+  <app-register-success [title]="'KYC Completed'" *ngIf="userDetails.userData.accountStatus == 'kyc_processing'"></app-register-success>
+</div>
+

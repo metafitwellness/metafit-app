@@ -1,0 +1,27 @@
+<div class="modal">
+  <div class="heading">
+    Delete?
+  </div>
+  <div  mat-dialog-close class="close"><mat-icon>close</mat-icon></div>
+  <p class="subHeading">Select one of the below options:</p>
+  <div>
+    <div class="radioOptions">
+      <input id="invoiceOption" name="options" ng-control="options" type="radio" [value]="'invoice'"  [(ngModel)]="deleteType" >
+      <label for="invoiceOption">
+        <p class="heading">Delete Invoice</p>
+        <p>This will delete all the invoices attached to this customer permanently</p>
+      </label>
+    </div>
+    <div class="radioOptions">
+      <input id="allOption" name="options" ng-control="options" type="radio" [value]="'all'" [(ngModel)]="deleteType" >
+      <label for="allOption">
+        <p class="heading">Delete Customer</p>
+        <p>This will delete customer account along with the invoices permanently</p>
+      </label>
+    </div>
+  </div>
+  <div class="buttons">
+    <button mat-dialog-close class="cancel">Cancel</button>
+    <button class="confirm" (click)="confirm()">Delete</button>
+  </div>
+</div>

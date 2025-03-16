@@ -1,0 +1,16 @@
+.main{
+  background-color: #fff;
+}
+.add-room-form {
+  padding: 1rem;
+
+  & .form-single-row {
+    display: flex;
+    column-gap: 0.5rem;
+    margin-top: 2rem;
+
+    & math-form-field {
+      width: 100%;
+    }
+  }
+}

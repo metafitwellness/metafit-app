@@ -1,0 +1,167 @@
+<app-header></app-header>
+<div class="main updateUser">
+  <div>
+    <div class="backBtn" [routerLink]="'/'"><mat-icon>arrow_back</mat-icon> Back</div>
+    <div class="pageHeader">{{ userData.hotelName }}</div>
+
+    <div class="rows">
+      <!-- Form fields for the user's profile -->
+      <div class="form-group col-md-6">
+        <label>Designation <span class="required">*</span></label>
+        <input type="text" [disabled]="!editForm" placeholder="Designation" [(ngModel)]="designation" #designationInput="ngModel" required />
+        <div *ngIf="designationInput.touched && designationInput.invalid">
+          <span class="error">This field is required</span>
+        </div>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label>Degree <span class="required">*</span></label>
+        <input type="text" [disabled]="!editForm" placeholder="Degree" [(ngModel)]="degree" #degreeInput="ngModel" required />
+        <div *ngIf="degreeInput.touched && degreeInput.invalid">
+          <span class="error">This field is required</span>
+        </div>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label>Passout Year <span class="required">*</span></label>
+        <select [disabled]="!editForm" [(ngModel)]="passoutYear" #passoutYearInput="ngModel" required>
+          <option value="null">Select Passout Year</option>
+          <option *ngFor="let year of passoutYears" [value]="year">{{ year }}</option>
+        </select>
+        <div *ngIf="passoutYearInput.touched && passoutYearInput.invalid">
+          <span class="error">This field is required</span>
+        </div>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label>Years of Experience <span class="required">*</span></label>
+        <select [disabled]="!editForm" [(ngModel)]="yearsOfExperience" #experienceInput="ngModel" required>
+          <option value="">Select Years of Experience</option>
+          <option *ngFor="let experience of yearsOfExperienceOptions" [value]="experience">{{ experience }}</option>
+        </select>
+        <div *ngIf="experienceInput.touched && experienceInput.invalid">
+          <span class="error">This field is required</span>
+        </div>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label>Home Address <span class="required">*</span></label>
+        <input type="text" [disabled]="!editForm" placeholder="Home Address" [(ngModel)]="homeAddress" #homeAddressInput="ngModel" required />
+        <div *ngIf="homeAddressInput.touched && homeAddressInput.invalid">
+          <span class="error">This field is required</span>
+        </div>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label>Office Address <span class="required">*</span></label>
+        <input type="text" [disabled]="!editForm" placeholder="Office Address" [(ngModel)]="officeAddress" #officeAddressInput="ngModel" required />
+        <div *ngIf="officeAddressInput.touched && officeAddressInput.invalid">
+          <span class="error">This field is required</span>
+        </div>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label>Bank Account Number <span class="required">*</span></label>
+        <input type="text" [disabled]="!editForm" placeholder="Bank Account Number" [(ngModel)]="bank_ac" #bankAcInput="ngModel" required />
+        <div *ngIf="bankAcInput.touched && bankAcInput.invalid">
+          <span class="error">This field is required</span>
+        </div>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label>Bank IFSC Code <span class="required">*</span></label>
+        <input type="text" [disabled]="!editForm" placeholder="Bank IFSC Code" [(ngModel)]="bank_ifsc" #ifscInput="ngModel" required />
+        <div *ngIf="ifscInput.touched && ifscInput.invalid">
+          <span class="error">This field is required</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Email ID <span class="required">*</span></label>
+        <input type="email" [disabled]="!editForm" placeholder="Email ID" [(ngModel)]="emailId" #emailInput="ngModel" required />
+        <span class="email-error" *ngIf="emailError">{{ emailError }}</span>
+        <div *ngIf="emailInput.touched && emailInput.invalid">
+          <span class="error">This field is required</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Alternative Contact (Optional)</label>
+        <input type="text" [disabled]="!editForm" placeholder="Alternative Contact" [(ngModel)]="alternativeContact" />
+      </div>
+
+      <div class="form-group col-md-6">
+        <label>Instagram URL</label>
+        <input type="text" [disabled]="!editForm" placeholder="Instagram URL" [(ngModel)]="instagramUrl" #instagramInput="ngModel" required />
+        <div *ngIf="instagramInput.touched && instagramInput.invalid">
+          <span class="error">This field is required</span>
+        </div>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label>LinkedIn URL (Optional)</label>
+        <input type="text" [disabled]="!editForm" placeholder="LinkedIn URL" [(ngModel)]="linkedinUrl" />
+      </div>
+
+      <div class="form-group col-md-6">
+        <label>YouTube URL (Optional)</label>
+        <input type="text" [disabled]="!editForm" placeholder="YouTube URL" [(ngModel)]="youtubeUrl" />
+      </div>
+
+      <div class="form-group col-md-6">
+        <label>Facebook URL (Optional)</label>
+        <input type="text" [disabled]="!editForm" placeholder="Facebook URL" [(ngModel)]="facebookUrl" />
+      </div>
+
+      <div class="form-group col-md-6">
+        <label>Website URL (Optional)</label>
+        <input type="text" [disabled]="!editForm" placeholder="Website URL" [(ngModel)]="websiteUrl" />
+      </div>
+
+      <div class="form-group col-md-6">
+        <label>Google Map URL (Optional)</label>
+        <input type="text" [disabled]="!editForm" placeholder="Google Map URL" [(ngModel)]="googleMapUrl" />
+      </div>
+
+      <!-- File uploads for personal documents with preview -->
+      <div class="form-group">
+        <label>Upload Self Photo</label>
+        <input type="file" [disabled]="!editForm" accept="image/*" (change)="onFilesSelected($event, 'self_photo')" />
+        <div *ngIf="selfPhoto">
+          <img [src]="selfPhotoPreview" alt="Self Photo Preview" class="image-preview" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Upload Aadhar Photo</label>
+        <input type="file" [disabled]="!editForm" accept="image/*" (change)="onFilesSelected($event, 'aadhar_photo')" />
+        <div *ngIf="aadharPhoto">
+          <img [src]="aadharPhotoPreview" alt="Aadhar Photo Preview" class="image-preview" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Upload Clinic Photo</label>
+        <input type="file" [disabled]="!editForm" accept="image/*" (change)="onFilesSelected($event, 'clinic_photo')" />
+        <div *ngIf="clinicPhoto">
+          <img [src]="clinicPhotoPreview" alt="Clinic Photo Preview" class="image-preview" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Upload PAN Card Photo</label>
+        <input type="file" [disabled]="!editForm" accept="image/*" (change)="onFilesSelected($event, 'pan_card_photo_front')" />
+        <div *ngIf="panCardPhotoFront">
+          <img [src]="panCardPhotoPreview" alt="PAN Card Photo Preview" class="image-preview" />
+        </div>
+      </div>
+
+      <div class="col-md-12"></div>
+
+      <div class="buttons">
+        <button [hidden]="!editForm" class="confirm" [disabled]="!validForm()" (click)="confirm()">Update Profile</button>
+      </div>
+
+    </div>
+  </div>
+</div>

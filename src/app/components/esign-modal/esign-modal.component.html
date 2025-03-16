@@ -1,0 +1,24 @@
+<div class="modal">
+  <div class="heading">
+    {{ eSignStatus=='esign'?'Finish E-Sign':'Decline Invoice' }}
+  </div>
+  <div mat-dialog-close class="close">
+    <mat-icon>close</mat-icon>
+  </div>
+  <div class="p">
+    <mat-radio-group [hidden]="true" aria-label="Select an option" [(ngModel)]="eSignStatus">
+      <mat-radio-button [hidden]="eSignStatus == 'esign'" value="esign">Finish E-Sign</mat-radio-button>
+      <mat-radio-button [hidden]="eSignStatus != 'rejesign'" value="rejesign">Reject E-Sign</mat-radio-button>
+    </mat-radio-group>
+    <div class="form-group" *ngIf="eSignStatus">
+      <label>Enter {{ (eSignStatus && eSignStatus=='esign')?'Full Name':'Reject Reason'}}</label>
+      <input class="form-control" type="text" placeholder="Enter {{ (eSignStatus && eSignStatus=='esign')?'Full Name':'Reject Reason' }}" [(ngModel)]="eSignData"/>
+    </div>
+
+  </div>
+
+  <div class="buttons">
+    <button mat-dialog-close class="cancel">Cancel</button>
+    <button class="confirm" [disabled]="!(eSignData && eSignData.length > 1)" (click)="confirm()">{{ (eSignStatus && eSignStatus=='esign')?'Finish E-Sign':'Decline E-Sign' }}</button>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<div class="kycDocumentBlock">
+  <div>
+    <mat-expansion-panel *ngFor="let document of documents; let i = index;" [expanded]="i == expandedIndex">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ i+1+'.' }} {{ document.name }} <span class="text-danger" *ngIf="document.required"> *</span>
+
+          <span class="borders kycStatus"
+            *ngIf="!userDetails.isAdmin && document.userDocument != undefined && document.userDocument[0] != undefined"
+            [class]="document?.userDocument[0]?.status=='rejected'?'declined':'completed'">
+            <i class="icons" [class]="document?.userDocument[0]?.status=='rejected'?'declined':'completed'"></i>
+            {{ document?.userDocument[0]?.status=='pending'? 'Done' : ( document?.userDocument[0]?.status=='approved' ?
+            'Approved' : 'Re-Upload' ) }}
+          </span>
+
+          <span class="borders kycStatus"
+            *ngIf="userDetails.isAdmin && document.userDocument != undefined && document.userDocument[0] != undefined && document?.userDocument[0]?.status != 'pending'"
+            [class]="document?.userDocument[0]?.status=='rejected'?'declined':'completed'">
+            <i class="icons" [class]="document?.userDocument[0]?.status=='rejected'?'declined':'completed'"></i>
+            {{ (document?.userDocument[0]?.status=='approved')? 'Approved' : 'Rejected' }}
+          </span>
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div class="expansionBody"
+        [class]="document?.userDocument != undefined && document?.userDocument[0]?.status == 'rejected' ? 'rejectedInput': ''">
+        <div class="makeInput"
+          *ngIf="!userDetails.isAdmin && !(document?.userDocument != undefined && document?.userDocument[0]?.documentPath)"
+          (click)="doUpload(document.id)">
+          Upload .pdf file
+          <mat-icon>upload</mat-icon>
+        </div>
+        <div class="viewInput" (click)="openDialog(document?.userDocument[0]?.documentPath)"
+          *ngIf="userDetails.isAdmin && document?.userDocument != undefined && document?.userDocument[0]?.documentPath">
+          {{document?.userDocument[0]?.documentPath.split('/').pop()}}
+          <mat-icon (click)="downloadFile(document?.userDocument[0]?.documentPath)">download</mat-icon>
+        </div>
+        <div class="viewInput"
+          *ngIf="!userDetails.isAdmin && document?.userDocument != undefined && document?.userDocument[0]?.documentPath">
+          {{document?.userDocument[0]?.documentPath.split('/').pop() }}
+          <mat-icon (click)="removeDocument(document.id)"
+            *ngIf="!(document?.userDocument[0]?.status == 'approved')">close</mat-icon>
+        </div>
+
+        <div
+          *ngIf="document.userDocument != undefined && document.userDocument[0] != undefined && document?.userDocument[0]?.status == 'rejected'"
+          class="rejectReason">Rejection Reason : <b>{{
+            document?.userDocument[0]?.reason }}</b></div>
+      </div>
+      <div class="expansionFooter">
+        <div class="actionUser" *ngIf="!userDetails.isAdmin">
+          <button class="nextButton"
+            [disabled]="!(document?.userDocument != undefined && document?.userDocument[0]?.documentPath)"
+            (click)="expandNext(i)" *ngIf="documents.length !== i+1">Next</button>
+        </div>
+        <div class="actionAdmin"
+          *ngIf="userDetails.isAdmin  && document?.userDocument != undefined && document?.userDocument[0]?.status == 'pending'">
+          <div (click)="confirmUpdateKyc(document, false)" class="text-danger btn">Reject</div>
+          <div (click)="confirmUpdateKyc(document, true)" class="text-success btn">Approve</div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </div>
+</div>

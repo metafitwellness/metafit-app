@@ -1,0 +1,12 @@
+.city-form-block{
+  display: flex;
+  column-gap: 1rem;
+  & button{
+    height: 2.5rem;
+    background-color: #3b72ab;
+    color: #fff;
+  }
+}
+.main{
+  background-color: #fff;
+}

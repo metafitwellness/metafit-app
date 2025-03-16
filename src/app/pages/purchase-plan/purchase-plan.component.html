@@ -1,0 +1,27 @@
+<app-header></app-header>
+<div class="main">
+  <div class="subscribe-container">
+    <div class="pricing-card">
+      <div class="card-body">
+
+        <div id="card-basic-plan" class="active">
+          <div class="card-plans">
+            <span class="plan-tag">Plan</span>
+            <div class="card-plan">
+              <h3 class="plan-title">{{selectedPlan.plan}}</h3>
+              <h3 class="plan-price">₹{{ selectedPlan.onboarding }}</h3>
+            </div>
+            <div class="plan-description" [innerHTML]="selectedPlan.description"></div>
+          </div>
+          <div class="card-button">
+            <button (click)="getSubscription()">MAKE PAYMENT</button>
+          </div>
+          <div class="card-button verify-payment" *ngIf="firstClick">
+            <button (click)="verifyPayment()">VERIFY PAYMENT</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

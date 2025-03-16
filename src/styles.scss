@@ -1,0 +1,694 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material" as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$toggleApp-primary: mat.define-palette(mat.$indigo-palette);
+$toggleApp-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$toggleApp-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$toggleApp-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $toggleApp-primary,
+      accent: $toggleApp-accent,
+      warn: $toggleApp-warn,
+    ),
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($toggleApp-theme);
+
+/* You can add global styles to this file, and also import other style files */
+* {
+  font-size: 14px;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #f5f5f5;
+  max-height: 100vh;
+  overflow: hidden;
+}
+
+.main {
+  padding: 1%;
+  width: 78%;
+  margin: 1%;
+  float: left;
+  max-height: 86vh;
+  overflow-y: auto;
+}
+.mat-snack-bar-container {
+  background: #fff;
+  & .mat-simple-snackbar {
+    display: block;
+  }
+}
+.notification-error {
+  background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.8),
+      rgba(255, 255, 255, 0.8)
+    ),
+    #eb5757;
+  font-weight: 500;
+  color: #712a2a;
+}
+.notification-success {
+  background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.8),
+      rgba(255, 255, 255, 0.8)
+    ),
+    #27ae60;
+  font-weight: 500;
+  color: #104f2b;
+}
+
+mat-paginator {
+  & .mat-paginator-range-label,
+  .mat-paginator-page-size-label,
+  .mat-paginator-page-size-select,
+  .mat-select-value * {
+    font-size: 12px !important;
+  }
+  & .mat-paginator-container {
+    justify-content: space-between;
+  }
+  & .mat-button-disabled {
+    opacity: 0.6 !important;
+  }
+  & .mat-paginator-icon {
+    width: 24px;
+  }
+}
+.icons {
+  font-style: normal;
+  &.created::after {
+    content: "\e627";
+    font-family: "Material Icons";
+  }
+  &.rejected::after {
+    content: "\e5cd";
+    font-family: "Material Icons";
+  }
+  &.under-review::after,
+  &.kyc_processing::after {
+    content: "\e8b5";
+    font-family: "Material Icons";
+  }
+  &.e-sign-pending::after {
+    content: "\e002";
+    font-family: "Material Icons";
+  }
+  &.pending::after,
+  &.kyc_pending::after {
+    content: "\e002";
+    font-family: "Material Icons";
+  }
+  &.closed::after {
+    content: "\e876";
+    font-family: "Material Icons";
+  }
+  &.declined::after {
+    content: "\e000";
+    font-family: "Material Icons";
+  }
+  &.completed::after {
+    content: "\e876";
+    font-family: "Material Icons";
+  }
+  &.in-progress::after {
+    content: "\e627";
+    font-family: "Material Icons";
+  }
+  &.deleted::after {
+    content: "\e872";
+    font-family: "Material Icons";
+  }
+  &.registered::after {
+    content: "\e873";
+    font-family: "Material Icons";
+  }
+  &.active::after {
+    content: "\ef76";
+    font-family: "Material Icons";
+  }
+  &.limit_pending::after {
+    content: "\e850";
+    font-family: "Material Icons";
+  }
+  &.limit_added::after {
+    content: "\e850";
+    font-family: "Material Icons";
+  }
+}
+.statusBlocks {
+  padding: 8px;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 12px;
+  &.active {
+    background: #268c6a;
+  }
+  &.inactive {
+    background: #d92e2e;
+  }
+}
+
+.borders {
+  border-radius: 20px;
+  padding: 4px 10px;
+  display: inline-flex;
+  align-items: center;
+  column-gap: 4px;
+  & span {
+    font-size: 12px;
+  }
+  &.registered,
+  &.active {
+    border: 1px solid #26815b;
+    background: #d9ebe5;
+    color: #26815b;
+    & .icons {
+      color: #26815b;
+    }
+  }
+  &.created {
+    border: 1px solid #0075be;
+    background: #eaf4fa;
+    color: #0075be;
+    & .icons {
+      color: #0075be;
+    }
+  }
+  &.rejected {
+    border: 1px solid #d92e2e;
+    color: #d92e2e;
+    background: #fff2f2;
+    & .icons {
+      color: #d92e2e;
+    }
+  }
+  &.under-review,
+  &.kyc_processing {
+    border: 1px solid #4a4b4b;
+    color: #4a4b4b;
+    background: #f9fcfe;
+    & .icons {
+      color: #4a4b4b;
+    }
+  }
+  &.e-sign-pending {
+    border: 1px solid #b19929;
+    background: #fffae2;
+    color: #b19929;
+    & .icons {
+      color: #b19929;
+    }
+  }
+  &.pending,
+  &.kyc_pending {
+    border: 1px solid #b19929;
+    color: #b19929;
+    background: #fffae2;
+    & .icons {
+      color: #b19929;
+    }
+  }
+  &.closed {
+    border: 1px solid #003624;
+    color: #003624;
+    background: #d9ebe5;
+    & .icons {
+      color: #003624;
+    }
+  }
+  &.declined {
+    border: 1px solid #d92e2e;
+    color: #d92e2e;
+    background: #fff2f2;
+    & .icons {
+      color: #d92e2e;
+    }
+  }
+  &.completed {
+    border: 1px solid #003624;
+    color: #003624;
+    background: #d9ebe5;
+    & .icons {
+      color: #003624;
+    }
+  }
+  &.in-progress {
+    border: 1px solid #0075be;
+    background: #eaf4fa;
+    color: #0075be;
+    & .icons {
+      color: #0075be;
+    }
+  }
+  &.deleted {
+    border: 1px solid #d92e2e;
+    background: transparent;
+    color: #d92e2e;
+    & .icons {
+      color: #d92e2e;
+    }
+  }
+  &.limit_pending,
+  &.limit_added {
+    border: 1px solid #005e98;
+    background: #eaf4fa;
+    color: #005e98;
+    & .icons {
+      color: #005e98;
+    }
+  }
+}
+
+.mat-list {
+  & .active {
+    & .mat-list-item-content {
+      color: #004d7e;
+    }
+  }
+}
+
+.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb {
+  background-color: #46a1da;
+}
+.mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
+  background-color: rgb(70 161 218 / 50%);
+}
+
+app-aboutus {
+  height: 100vh;
+  overflow: hidden;
+  display: block;
+  overflow-y: auto;
+}
+.form-group {
+  margin-top: 24px;
+  & label {
+    margin-bottom: 8px;
+    display: block;
+    font-weight: 500;
+    color: #747576;
+  }
+  & .form-control,
+  & .mat-select {
+    width: -webkit-fill-available;
+    padding: 14px 16px;
+    color: #3b3c3c;
+    border-radius: 8px;
+    border: 1px solid #e1e3e4;
+    background: #f4f5f7;
+    &:disabled,
+    &.mat-select-disabled {
+      background-color: #d5d7d9;
+      color: #3b3c3c;
+      & .mat-select-arrow {
+        border: none;
+      }
+    }
+  }
+  & .currencyCodeDisabled {
+    background-color: #d5d7d9;
+  }
+  & .form-control:focus {
+    border-color: #46a1da;
+    outline-color: #46a1da;
+  }
+  & .inputErrMsg {
+    color: #d92e2e;
+    font-size: 12px;
+    padding-top: 4px;
+  }
+  & .inputErr {
+    border-color: #d92e2e;
+  }
+}
+.countryInput {
+  & .mat-option-text {
+    display: flex;
+    align-items: center;
+    column-gap: 12px;
+  }
+  & .countrySelectFlag {
+    width: 32px;
+    height: 22px;
+  }
+}
+.mat-select-trigger {
+  display: flex;
+  align-items: center;
+  column-gap: 12px;
+  & .countrySelectFlag {
+    width: 32px;
+    height: 22px;
+  }
+  &.selctedCountry {
+    padding: 0;
+    position: absolute !important;
+    top: -4px;
+  }
+}
+.currencyCode {
+  background: #f4f5f7;
+  border-radius: 8px;
+  border: 1px solid #e1e3e4;
+  padding: 10px 12px 0 12px;
+  & img {
+    height: 22px;
+  }
+}
+
+.otp-input {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  margin-top: 34px;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+  row-gap: 12px;
+  & .otp-inputs {
+    display: flex;
+    column-gap: 12px;
+    & input {
+      width: 40px;
+      height: 48px;
+      background: #f4f5f7;
+      border: 1px solid #e1e3e4;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 16px;
+      &:focus,
+      &:focus-visible {
+        border: 1px solid #66acd8;
+        outline: 2px #66acd8;
+      }
+      &.invaliOtp {
+        border: solid thin #d92e2e !important;
+      }
+    }
+  }
+  & .invalidOtpText {
+    color: #d92e2e;
+    font-size: 12px;
+  }
+  & .resent-otp {
+    color: #747576;
+    font-size: 12px;
+    & span {
+      font-weight: 400;
+      font-size: 12px;
+      color: #46a1da;
+      &.btn {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.mat-tab-label {
+  padding: 14px 16px !important;
+  display: inline-table !important;
+  min-width: 60px !important;
+  & .mat-tab-label-content {
+    color: #747576;
+  }
+  &.mat-tab-label-active .mat-tab-label-content {
+    color: #000 !important;
+    opacity: 1 !important;
+  }
+}
+.mat-tab-header-pagination {
+  display: none !important;
+}
+.mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background-color: #004d7e;
+}
+.button {
+  background: #46a1da;
+  border-radius: 6px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  outline: none;
+  border: none;
+  column-gap: 6px;
+  color: #fff;
+  cursor: pointer;
+  & mat-icon {
+    font-size: 20px;
+    color: #fff;
+    height: 16px;
+  }
+  &.buttonSecondary {
+    background: none;
+    color: #46a1da;
+  }
+  &.buttonAccept {
+    background: #268c6a;
+  }
+  &.buttonApprove {
+    background: #46a1da;
+  }
+  &.buttonReject {
+    background: #d92e2e;
+  }
+  &:hover {
+    opacity: 0.8;
+  }
+  &:disabled {
+    background: #d5d7d9;
+    color: #747576;
+    cursor: not-allowed;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  &.buttonTransparent {
+    background: transparent;
+    color: #46a1da;
+    &:disabled {
+      color: #747576;
+    }
+  }
+}
+
+.actionButtons {
+  display: flex;
+  position: absolute;
+  top: -112px;
+  right: 0;
+  column-gap: 12px;
+}
+.mat-tab-body.mat-tab-body-active,
+.mat-tab-body-wrapper {
+  overflow: visible !important;
+  overflow-x: visible !important;
+  overflow-y: visible !important;
+}
+
+.text {
+  &-success {
+    color: #268c6a;
+  }
+  &-danger {
+    color: #d92e2e;
+  }
+}
+
+.mat-tab-label .mat-tab-label-content {
+  text-transform: capitalize;
+}
+.kycMatTabs {
+  & mat-tab-header {
+    width: 60%;
+  }
+}
+// Custom Mat Box
+
+.custom-modalbox {
+  & mat-dialog-container {
+    background-color: transparent !important;
+    box-shadow: none;
+    padding: 10px;
+  }
+}
+.backBtn {
+  display: flex;
+  align-items: center;
+  column-gap: 0.5rem;
+}
+.pageHeader {
+  font-size: 1.4rem;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+.align-right-filter {
+  display: flex !important;
+  justify-content: end !important;
+}
+
+.mat-table {
+  width: 100%;
+}
+.no-data {
+  text-align: center;
+}
+.mat-white-button {
+  & .mat-flat-button.mat-primary,
+  .mat-raised-button.mat-primary,
+  .mat-fab.mat-primary,
+  .mat-mini-fab.mat-primary {
+    color: #fff !important;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .main,
+  .updateUser {
+    width: 100% !important;
+    padding: 1rem !important;
+    box-sizing: border-box;
+
+    & .form-group {
+      width: 92% !important;
+
+      & input {
+        width: 88% !important;
+      }
+    }
+    & .form-single-row {
+      flex-wrap: wrap !important;
+      margin-top: 0.5rem !important;
+
+      & .mat-form-field {
+        width: 90%;
+      }
+    }
+  }
+
+  .registerBlock {
+    & .phoneNumber {
+      width: 60%;
+    }
+  }
+  .cdk-overlay-pane {
+    width: auto !important;
+  }
+  .subscribe-container {
+    height: 90vh !important;
+
+    & .pricing-card {
+      width: 85% !important;
+    }
+  }
+}
+
+.rejectedReason {
+  color: red;
+  font-weight: 500;
+}
+
+/* Initiated Status */
+.initiated-badge {
+  background-color: #ff9800; /* Orange */
+  color: white; /* White text */
+}
+
+/* Pending Status */
+.pending-badge {
+  background-color: #ff5722; /* Red */
+  color: white; /* White text */
+}
+
+/* Approved Status */
+.approved-badge {
+  background-color: #4caf50; /* Green */
+  color: white; /* White text */
+}
+
+/* Rejected Status */
+.rejected-badge {
+  background-color: #f44336; /* Dark Red */
+  color: white; /* White text */
+}
+
+.badge {
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.5rem;
+  white-space: nowrap;
+  font-size: 0.8rem;
+}
+
+/* Active Status */
+.active-badge {
+  background-color: #4caf50; /* Green */
+  color: white; /* White text */
+}
+
+/* Profile Pending Status */
+.profile-pending-badge {
+  background-color: #ff9800; /* Orange */
+  color: white; /* White text */
+}
+
+/* Registered Status */
+.registered-badge {
+  background-color: #ff5722; /* Red */
+  color: white; /* White text */
+}
+
+/* Expired Status */
+.expired-badge {
+  background-color: #9e9e9e; /* Gray */
+  color: white; /* White text */
+}
+
+.plan-description {
+  display: block !important;
+  & table {
+    text-align: left;
+    width: 100%;
+    border-collapse: collapse;
+
+    & td,
+    th {
+      border: solid thin #ddd;
+      padding: 0.2rem 0.4rem;
+      border-spacing: 0;
+    }
+
+    & tr{
+      & td:last-child{
+        text-align: center;
+      }
+    }
+  }
+}

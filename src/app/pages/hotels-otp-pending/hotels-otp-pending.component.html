@@ -1,0 +1,98 @@
+<app-header></app-header>
+<div class="main updateUser">
+  <div class="backBtn" [routerLink]="'/'"><mat-icon>arrow_back</mat-icon> Back</div>
+  <div class="pageHeader">Vendors List Pending for OTP Verfication</div>
+
+  <div class="search-container" *ngIf="false">
+    <mat-form-field appearance="standard">
+      <mat-label>Search</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Filter hotels">
+    </mat-form-field>
+
+    <mat-form-field appearance="standard">
+      <mat-label>Account Status</mat-label>
+      <mat-select (selectionChange)="applyColumnFilter($event, 'accountStatus')">
+        <mat-option value="registered">Not Subscribed</mat-option>
+        <mat-option value="profile-pending">Profile Pending</mat-option>
+        <mat-option value="active">Subscribed / Active</mat-option>
+        <mat-option value="expired">Expired</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="standard">
+      <mat-label>Hotel Status</mat-label>
+      <mat-select (selectionChange)="applyColumnFilter($event, 'status')">
+        <mat-option value="1">Online</mat-option>
+        <mat-option value="0">Offline</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <table mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="sno">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>S.No.</th>
+      <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="hotelName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Vendor Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="city_name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>City</th>
+      <td mat-cell *matCellDef="let element">{{ element.city_name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="hotel_type">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Segment</th>
+      <td mat-cell *matCellDef="let element">{{ element.segement || 'N/A' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="phoneNumber">
+      <th mat-header-cell *matHeaderCellDef>Phone Number</th>
+      <td mat-cell *matCellDef="let element">{{ element.phoneNumber }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="emailId">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let element">{{ element.emailId }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="account_Status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Account Status</th>
+      <td mat-cell *matCellDef="let element">
+        {{ getAccountStatus(element.accountStatus) }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="referral">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Referral</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.referral !== null ? element.referral : 'Direct' }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="hotelStatus">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Hotel Status</th>
+      <td mat-cell *matCellDef="let element">{{ element.status == 0 ? 'Offline' : 'Online' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="dateAdded">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date Added</th>
+
+      <td mat-cell *matCellDef="let element">
+        {{element.addedOn | date:'d MMM Y hh:ss a'}}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <div *ngIf="dataSource.filteredData.length === 0" class="no-records-found">
+    <p>No records found</p>
+  </div>
+  <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+
+</div>

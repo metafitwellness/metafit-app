@@ -1,0 +1,221 @@
+.static {
+  width: 100vw;
+  height: 100vh;
+
+  & p {
+    font-size: 20px;
+    line-height: 30px;
+  }
+  & h2 {
+    font-size: 32px;
+  }
+  & .frame1 {
+    background: #eaf4fa;
+    background-image: url(../../../assets/images/aboutus/about-1.png);
+    background-position: right center;
+    background-repeat: no-repeat;
+    background-size: 42%;
+    & .logo {
+      width: auto;
+      margin: 40px 0 0 100px;
+      cursor: pointer;
+      & img{
+        height: 30px;
+      }
+    }
+    & .intro {
+      display: flex;
+      height: 80vh;
+      padding-left: 100px;
+      flex-flow: column;
+      justify-content: center;
+      & h1 {
+        font-weight: 500;
+        font-size: 38px;
+        margin: 0;
+        padding: 0;
+        margin-bottom: 24px;
+      }
+      & h2 {
+        font-weight: 400;
+        font-size: 32px;
+        margin: 0;
+        padding: 0;
+        width: 50%;
+        line-height: 42px;
+        & b {
+          font-weight: 400;
+          font-size: 32px;
+          margin: 0;
+          padding: 0;
+          color: #46a1da;
+        }
+      }
+    }
+  }
+  & section {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+  }
+  & .row {
+    display: flex;
+    & .col-md-6 {
+      width: 50%;
+    }
+  }
+  & .section2 {
+    & .section2img {
+      & img {
+        padding: 20% 20%;
+        width: -webkit-fill-available;
+      }
+    }
+    & .section2Content {
+      background-color: #e0f3ff;
+      & h2 {
+        padding: 0 80px;
+        margin-top: 25%;
+      }
+      & p {
+        padding: 0 80px;
+      }
+    }
+  }
+  & .section3 {
+    height: auto;
+    padding: 56px 100px;
+    width: auto;
+    background-color: #37476c;
+    text-align: center;
+    & * {
+      color: #fff;
+    }
+  }
+  & .section4 {
+    padding-top: 132px;
+    background-image: url(../../../assets/images/aboutus/about-3.png);
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    background-size: 32%;
+    & h2 {
+      padding: 0 100px;
+      margin-bottom: 32px;
+    }
+    & p {
+      padding: 0 100px;
+    }
+    & .w50 {
+      width: 50%;
+    }
+  }
+  & .section5 {
+    background-color: #eaf4fa;
+    text-align: center;
+    padding-top: 56px;
+    height: auto;
+    & p,
+    b {
+      font-size: 18px;
+    }
+    & b {
+      font-weight: 500;
+    }
+    & .map {
+      width: -webkit-fill-available;
+      padding: 30px 100px;
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  h2 {
+    font-size: 26px !important;
+  }
+  p{
+    font-size: 18px!important;
+  }
+  .frame1 {
+    background-position: right top !important;
+    background-size: 50% !important;
+    & .logo {
+      margin: 16px 0 0 18px !important;
+    }
+    & .intro {
+      height: 100vh !important;
+      padding-left: 22px !important;
+      margin-top: 50px !important;
+      & h1 {
+        width: 100%;
+        line-height: 120%;
+        margin-bottom: 10px !important;
+      }
+      & h2 {
+        width: 94% !important;
+        font-size: 26px !important;
+        line-height: 34px !important;
+        & b {
+          font-size: 26px !important;
+        }
+      }
+    }
+  }
+  .section2 {
+    overflow: auto !important;
+    height: auto!important;
+    & .row {
+      flex-direction: column-reverse;
+      & .col-md-6 {
+        width: 100%;
+      }
+      & .section2Content {
+        & h2 {
+          margin: 0 !important;
+          padding: 0 28px;
+          margin-top: 4% !important;
+        }
+        & p {
+          padding: 0 28px;
+          font-size: 16px;
+          line-height: 22px;
+        }
+      }
+      & .section2img {
+        text-align: center !important;
+        & img {
+          padding: 8% 0 !important;
+          width: 72% !important;
+        }
+      }
+    }
+  }
+  .section3 {
+    padding: 40px 40px !important;
+  }
+  .section4 {
+    padding-top: 28px !important;
+    height: auto!important;
+    background-size: 300px!important;
+    padding-bottom: 300px!important;
+    & h2 {
+      width: 100%;
+      padding: 0px!important;
+      margin-bottom: 14px!important;
+      text-align: center!important;
+    }
+    & p{
+      padding: 0 26px!important;
+    }
+    & .w50{
+      width: auto!important;
+    }
+  }
+  .section5{
+    & p{
+      margin: 0 16px;
+    }
+    & .map{
+      padding: 30px 22px!important;
+    }
+  }
+}

@@ -1,0 +1,72 @@
+<div class="userLogin">
+  <div class="logoSection">
+    <a href="https://metafitwellness.com">
+      <img src="../../../assets/images/logo.png" class="logo" />
+    </a>
+  </div>
+  <div class="loginBlock">
+    <div class="loginContent">
+      <h2>Log-in</h2>
+      <span *ngIf="!firstLogin && !resetPass">Enter your registered phone number and password to log in </span>
+      <span *ngIf="firstLogin">Enter new password to log in</span>
+      <span *ngIf="resetPass">A 6 Digit OTP will sent to Your Registered Phone Number</span>
+      <div class="form" *ngIf="!firstLogin && !resetPass">
+        <div class="form-group">
+          <input #phoneIn="ngModel" (keyup)="validate()" type="tel" placeholder="Enter registered phone no"
+            [(ngModel)]="phoneno" minlength="10" maxlength="10">
+          <div class="error" *ngIf="phoneIn.touched && phoneIn.invalid">Enter 10 Digit Valid Phone No.</div>
+          <div class="error" *ngIf="formError">{{ formError }}</div>
+        </div>
+        <div class="form-group">
+          <input #passwordIn="ngModel" (keyup)="validate()" type="password" placeholder="Enter your password"
+            [(ngModel)]="password">
+          <span class="forgotPass" (click)="forgotPassword()">Forgot Password?</span>
+        </div>
+        <div class="form-group">
+          <button (click)="doLogin()" [disabled]="!( isValid && phoneIn.valid && passwordIn.valid )">LOG IN</button>
+        </div>
+        <div class="or-seprator"></div>
+        <div class="form-group">
+          <button routerLink="/register">Register</button>
+        </div>
+      </div>
+
+      <div class="form" *ngIf="resetPass">
+        <div class="form-group resetPassword">
+          <input #phoneIn="ngModel" [disabled]="otpSent" (keyup)="validate()" type="tel"
+            placeholder="Enter Registered Phone No." [(ngModel)]="phoneno" minlength="10" maxlength="10">
+          <div class="error" *ngIf="phoneIn.touched && phoneIn.invalid">Enter Phone Number</div>
+          <button *ngIf="!otpSent" (click)="resetPassword()" [disabled]="!(phoneno && phoneIn.valid)">Reset
+            Password</button>
+        </div>
+        <div class="form-group" *ngIf="otpSent">
+          <div class="form-group resetPassword">
+            <input #otpIn="ngModel" type="tel" placeholder="Enter 6 Digit OTP" [(ngModel)]="otp" minlength="6"
+              maxlength="6">
+            <div class="error" *ngIf="otpIn.touched && otpIn.invalid">Enter 6 Digit OTP</div>
+            <div class="error" *ngIf="formError">{{ formError }}</div>
+          </div>
+          <button *ngIf="otpSent" (click)="verifyOtp()" [disabled]="!(otp && otpIn.valid)">Verify OTP</button>
+        </div>
+      </div>
+
+      <div class="form" *ngIf="firstLogin">
+        <div class="form-group">
+          <input #cPasswordIn="ngModel" (keyup)="validate2()" type="password" placeholder="Enter New Password"
+            [(ngModel)]="cPassword">
+          <div class="error" *ngIf="cPasswordIn.touched && cPasswordIn.invalid">Enter New Password</div>
+          <div class="error" *ngIf="formError">{{ formError }}</div>
+        </div>
+        <div class="form-group">
+          <input #cPasswordIn2="ngModel" (keyup)="validate2()" type="password" placeholder="Confirm New Password"
+            [(ngModel)]="cPassword2">
+          <div class="error" *ngIf="!(cPassword == cPassword2) && cPasswordIn.touched && cPasswordIn2.touched">New
+            Password and confirm password should mathc</div>
+        </div>
+        <div class="form-group">
+          <button (click)="updateLogin()" [disabled]="!(isValid2)">Change Password</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

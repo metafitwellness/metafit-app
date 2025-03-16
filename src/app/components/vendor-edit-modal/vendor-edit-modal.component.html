@@ -1,0 +1,115 @@
+<h2 mat-dialog-title>Edit Vendor</h2>
+<form [formGroup]="vendorForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content class="mat-typography forms-inputs">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="user_name" required>
+      <mat-error *ngIf="vendorForm.controls['user_name'].invalid">Name is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Segment</mat-label>
+      <mat-select formControlName="segment_name" (selectionChange)="updateSegment($event)">
+        <mat-option *ngFor="let segment of segmentList" [value]="segment.id">
+          {{ segment.segement }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>City</mat-label>
+      <mat-select formControlName="city_name" (selectionChange)="updateCity($event)">
+        <mat-option *ngFor="let cityItem of cityList" [value]="cityItem.id">
+          {{ cityItem.city_name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="emailId">
+      <mat-error *ngIf="vendorForm.controls['emailId'].invalid">Invalid Email</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Phone Number</mat-label>
+      <input matInput [disabled]="true" type="text" formControlName="phoneNumber" required>
+      <mat-error *ngIf="vendorForm.controls['phoneNumber'].invalid">Invalid Phone Number</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Designation</mat-label>
+      <input matInput formControlName="designation">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Home Address</mat-label>
+      <input matInput formControlName="homeAddress">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Office Address</mat-label>
+      <input matInput formControlName="officeAddress">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Degree</mat-label>
+      <input matInput formControlName="degree">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Passout Year</mat-label>
+      <input matInput type="number" formControlName="passoutYear">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Years of Experience</mat-label>
+      <input matInput type="number" formControlName="yearsOfExperience">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Instagram URL</mat-label>
+      <input matInput formControlName="instagram_url">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>LinkedIn URL</mat-label>
+      <input matInput formControlName="linkedin_url">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>YouTube URL</mat-label>
+      <input matInput formControlName="youtube_url">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Facebook URL</mat-label>
+      <input matInput formControlName="facebook_url">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Website URL</mat-label>
+      <input matInput formControlName="website_url">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Google Map URL</mat-label>
+      <input matInput formControlName="google_map_url">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Alternative Contact</mat-label>
+      <input matInput type="text" formControlName="alternative_contact">
+      <mat-error *ngIf="vendorForm.controls['alternative_contact'].invalid">Invalid Phone Number</mat-error>
+    </mat-form-field>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="closeModal()">Cancel</button>
+    <button mat-button color="primary" type="submit" [disabled]="vendorForm.invalid">Save</button>
+  </mat-dialog-actions>
+</form>

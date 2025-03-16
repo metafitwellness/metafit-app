@@ -1,0 +1,127 @@
+<app-header></app-header>
+<div class="main">
+  <div class="viewInvoice">
+    <div class="invoiceHeader">
+      <div class="goBack" routerLink="/invoice-credit-system">
+        <mat-icon>arrow_back</mat-icon>
+        <span>Invoice Credit System</span>
+      </div>
+      <div class="invoiceHeading">
+        <h1>{{ invoiceData.referenceNo | uppercase }}</h1>
+        <span class="borders" [class]="invoiceData.invoiceStatus">
+          <i class="icons" [class]="invoiceData.invoiceStatus"></i>
+          {{ invoiceData.invoiceStatus?.replace("_", " ").replace("_", " ") | titlecase }}
+        </span>
+        <div *ngIf="!isAdmin && invoiceData.invoiceStatus == 'e-sign-pending'"
+          (click)="eSignInvoice(invoiceData.referenceNo, 'rejesign')" class="eSignInvoice esignDecline">Decline</div>
+        <div *ngIf="!isAdmin && invoiceData.invoiceStatus == 'e-sign-pending'"
+          (click)="eSignInvoice(invoiceData.referenceNo, 'esign')" class="eSignInvoice">E-Sign</div>
+        <div *ngIf="isAdmin && invoiceData.paymentStatus == 'in-progress'" (click)="closeInvoice()"
+          class="eSignInvoice">Close
+          Invoice</div>
+        <div *ngIf="!isAdmin && ['created'].includes(invoiceData.invoiceStatus)" (click)="deleteInvoice()"
+          class="deleteInvoice"><mat-icon>delete_outline</mat-icon> Delete Invoice</div>
+          <div *ngIf="isAdmin && ['under-review', 'e-sign-pending'].includes(invoiceData.invoiceStatus)" (click)="deleteInvoice()"
+          class="deleteInvoice"><mat-icon>delete_outline</mat-icon> Delete Invoice</div>
+      </div>
+      <div class="invoiceDataContainer">
+        <div class="invoiceData">
+          <div class="heading">Uploaded On</div>
+          <div class="data">{{ invoiceData.uploadedOn | date:'dd MMM Y' }}</div>
+        </div>
+        <div class="invoiceData">
+          <div class="heading">Uploaded By</div>
+          <div class="data">{{ invoiceData.name | titlecase }}</div>
+        </div>
+        <div class="invoiceData" *ngIf="!(['created', 'rejected'].includes(invoiceData.invoiceStatus))">
+          <div class="heading">Accepted On</div>
+          <div class="data">{{ invoiceData.acceptedOn | date:'dd MMM Y' }}</div>
+        </div>
+        <div class="invoiceData" *ngIf="['created', 'under-review'].includes(invoiceData.invoiceStatus)">
+          <div class="heading">Action pending</div>
+          <div class="data">Action pending from Toggle Market</div>
+        </div>
+        <div class="invoiceData" *ngIf="invoiceData.invoiceStatus == 'rejected'">
+          <div class="heading">Rejected On</div>
+          <div class="data">{{ invoiceData.lastUpdate | date:'dd MMM Y' }}</div>
+        </div>
+        <div class="invoiceData" *ngIf="invoiceData.invoiceStatus == 'rejected'">
+          <div class="heading">Rejected for Reason</div>
+          <div class="data">{{ invoiceData.rejectReason | titlecase }}</div>
+        </div>
+        <div class="invoiceData"
+          *ngIf="['e-sign-pending', 'closed', 'completed', 'declined'].includes(invoiceData.invoiceStatus)">
+          <div class="heading">Invoice Amount</div>
+          <div class="data">{{ invoiceData.invoiceAmount | number:'1.2-2' }} {{ invoiceData.currency }}</div>
+        </div>
+        <div class="invoiceData" *ngIf="['closed', 'completed'].includes(invoiceData.invoiceStatus)">
+          <div class="heading">E-Signed By</div>
+          <div class="data">{{ invoiceData.eSign | titlecase }}</div>
+        </div>
+        <div class="invoiceData" *ngIf="['closed', 'completed'].includes(invoiceData.invoiceStatus)">
+          <div class="heading">E-Signed On</div>
+          <div class="data">{{ invoiceData.eSignOn | date:'dd MMM y' }}</div>
+        </div>
+        <div class="invoiceData" *ngIf="['closed', 'completed'].includes(invoiceData.invoiceStatus)">
+          <div class="heading">Payment Status</div>
+          <div class="data">
+            <span class="borders" [class]="invoiceData.paymentStatus">
+              <i class="icons" [class]="invoiceData.paymentStatus"></i>
+              {{ invoiceData.paymentStatus?.replace("_", " ").replace("_", " ") | titlecase }}
+            </span>
+          </div>
+        </div>
+        <div class="invoiceData" *ngIf="invoiceData.invoiceStatus == 'declined'">
+          <div class="heading">Declined By</div>
+          <div class="data">{{ invoiceData.name | titlecase }}</div>
+        </div>
+        <div class="invoiceData" *ngIf="invoiceData.invoiceStatus == 'declined'">
+          <div class="heading">Declined On</div>
+          <div class="data">{{ invoiceData.lastUpdate | date:'dd MMM Y' }}</div>
+        </div>
+        <div class="invoiceData" *ngIf="invoiceData.invoiceStatus == 'declined'">
+          <div class="heading">Rejected for Decline</div>
+          <div class="data">{{ invoiceData.eSign | titlecase }}</div>
+        </div>
+
+      </div>
+    </div>
+    <div class="invoiceViewBlock">
+      <div class="heading">{{ ["completed", "closed"].includes(invoiceData.invoiceStatus)?'Revised Invoice':'View
+        Invoice' }}
+        <!-- <mat-icon class="visibility">visibility</mat-icon> -->
+      </div>
+      <div class="invoiceViewButtons">
+        <a *ngIf="invoiceData.invoiceStatus == 'created' && isAdmin" class="reject button"
+          (click)="approveInvoice('reject', '{{ invoiceReference }}')">
+          <mat-icon>close</mat-icon> Reject
+        </a>
+        <a *ngIf="invoiceData.invoiceStatus == 'created' && isAdmin" class="accept button"
+          (click)="approveInvoice('accept', '{{ invoiceReference }}')">
+          <mat-icon>done</mat-icon> Accept
+        </a>
+        <a *ngIf="isAdmin && invoiceData.invoiceStatus == 'under-review'" class="accept button"
+          (click)="uploadRevisedInvoice()">
+          <mat-icon>upload</mat-icon> Upload Revised Invoice
+        </a>
+        <a *ngIf="isAdmin && invoiceData.invoiceStatus == 'completed'" class="accept button"
+          (click)="uploadPaymentDetails()">
+          <mat-icon>upload</mat-icon> Upload Payment Details
+        </a>
+        <a *ngIf="(['completed', 'in-progress'].includes(invoiceData.paymentStatus)) && paymentDetails"
+          href="{{uploadPath+paymentDetails}}" class="link" target="_blank">
+          View Payment Details
+        </a>
+      </div>
+      <div class="invoicePreview">
+        <div class="preview1" *ngIf='!["completed", "closed"].includes(invoiceData.invoiceStatus)'>
+          <iframe *ngIf="invoiceData.invoiceUrl" [src]="uploadPath+invoiceData.invoiceUrl | safe"></iframe>
+        </div>
+        <div class="preview2">
+          <iframe *ngIf="invoiceData.revisedInvoiceUrl"
+            [src]="uploadPath+invoiceData.revisedInvoiceUrl | safe"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

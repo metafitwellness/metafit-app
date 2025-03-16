@@ -1,0 +1,130 @@
+<div class="registerDetails">
+  <div class="actionButtons" *ngIf="(userDetails.status == 'registered' && userDetails.accountStatus == undefined)">
+    <button class="button buttonReject" (click)="doRegister(false)">
+      <mat-icon>close</mat-icon>
+      Reject
+    </button>
+    <button class="button buttonAccept" (click)="doRegister(true)">
+      <mat-icon>done</mat-icon>
+      Accept
+    </button>
+  </div>
+  <div class="registerBlock">
+    <div class="form-group">
+      <label>Email</label>
+      <input [disabled]="doEdit" #emailIn="ngModel" type="email" placeholder="youremail@domain.com" class="form-control"
+        [(ngModel)]="email" [email]="true" [class]="emailIn.touched && emailIn.invalid?'inputErr':''" />
+      <div class="inputErrMsg" *ngIf="emailIn.touched && emailIn.invalid">Enter Valid Email</div>
+    </div>
+    <div class="form-group">
+      <label>Phone</label>
+      <div class="phoneInput firstBlock">
+        <mat-select [disabled]="doEdit" #countryIn="ngModel" [(ngModel)]="phoneCode" placeholder="Select Extension"
+          class="phoneCode" [value]="phoneCode">
+          <mat-select-trigger class="mat-select-trigger" [class]="phoneCode?.code?'selctedCountry':''">
+            <img class="countrySelectFlag" [src]="pathSource+phoneCode?.code?.toLowerCase()+'.png'">
+            <span *ngIf="doEdit">{{country.dial_code}}</span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let country of countryList" [value]="country" class="countryInput">
+            <img class="countrySelectFlag" *ngIf="country?.code" [src]="pathSource+country?.code?.toLowerCase()+'.png'" /> {{ country.dial_code }}
+          </mat-option>
+        </mat-select>
+        <input type="tel" [disabled]="doEdit" #phoneIn="ngModel" placeholder="XXXXXXXXXX"
+          class="form-control phoneNumber" [(ngModel)]="phoneNumber" pattern="[1-9]{1}[0-9]{9,11}" />
+      </div>
+      <div class="inputErrMsg" *ngIf="phoneIn.touched && phoneIn.invalid">Enter Valid Phone Number</div>
+    </div>
+    <div class="form-group">
+      <label>Designatory Name</label>
+      <input [disabled]="doEdit" #designatoryIn="ngModel" type="text" placeholder="Designatory Name"
+        class="form-control" [(ngModel)]="designatory"
+        [class]="designatoryIn.touched && designatoryIn.invalid?'inputErr':''" />
+      <div class="inputErrMsg" *ngIf="designatoryIn.touched && designatoryIn.invalid">Enter Valid Designatory</div>
+    </div>
+    <div class="form-group">
+      <label>Business Name</label>
+      <input [disabled]="doEdit" #businessNameIn="ngModel" type="businessName" placeholder="Business Name"
+        class="form-control" [(ngModel)]="businessName"
+        [class]="businessNameIn.touched && businessNameIn.invalid?'inputErr':''" />
+      <div class="inputErrMsg" *ngIf="businessNameIn.touched && businessNameIn.invalid">Enter Valid Business Name
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Business Type</label>
+      <mat-select [disabled]="doEdit" #businessTypeIn="ngModel" [(ngModel)]="businessType"
+        placeholder="Select Business Type">
+        <mat-option *ngFor="let bt of businessTypes" [value]="bt">
+          {{ bt }}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="form-group" *ngIf="businessType == 'Others'">
+      <label>Enter Business Type</label>
+      <input [disabled]="doEdit" #otherBusinessTypeIn="ngModel" placeholder="Business Type" class="form-control"
+        [(ngModel)]="otherBusinessType"
+        [class]="otherBusinessTypeIn.touched && otherBusinessTypeIn.invalid?'inputErr':''" />
+      <div class="inputErrMsg" *ngIf="otherBusinessTypeIn.touched && otherBusinessTypeIn.invalid">Enter Business Type
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Country</label>
+      <mat-select [disabled]="doEdit" #countryIn="ngModel" [(ngModel)]="country" placeholder="Select Country"
+        (selectionChange)="updateCurrency()">
+        <mat-select-trigger class="mat-select-trigger" [class]="country?.code?'selctedCountry':''">
+          <img class="countrySelectFlag" [src]="pathSource+country?.code?.toLowerCase()+'.png'">
+          <span>{{country.name}}</span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let country of countryList" [value]="country" class="countryInput">
+          <img class="countrySelectFlag" [src]="pathSource+country?.code?.toLowerCase()+'.png'" /> {{ country.name }}
+        </mat-option>
+      </mat-select>
+    </div>
+    <div class="form-group">
+      <label>Currency</label>
+      <mat-select [disabled]="doEdit" #currencyIn="ngModel" [(ngModel)]="currency" placeholder="Select Currency">
+        <mat-select-trigger class="mat-select-trigger" [class]="currency?.code?'selctedCountry':''">
+          <img class="countrySelectFlag" [src]="pathSource+currency?.code?.toLowerCase()+'.png'">
+          <span>{{currency.name}}</span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let country of countryListAmount" [value]="country" class="countryInput">
+          <img class="countrySelectFlag" [src]="pathSource+country?.code?.toLowerCase()+'.png'" /> {{ country?.currency?.name }} ({{
+          country?.currency?.code }})
+        </mat-option>
+      </mat-select>
+      <div class="inputErrMsg" *ngIf="currencyIn.touched && currencyIn.invalid">Select Currency</div>
+    </div>
+    <div class="form-group">
+      <label>Annual Turnover</label>
+      <mat-select [disabled]="doEdit" #turnoverIn="ngModel" [(ngModel)]="annualTurnover"
+        placeholder="Select Annual Turnover">
+        <mat-option *ngFor="let turnover of turnoverLimit" [value]="turnover" class="countryInput">
+          {{turnover}}
+        </mat-option>
+      </mat-select>
+      <div class="inputErrMsg" *ngIf="turnoverIn.touched && turnoverIn.invalid">Select Annual Turnover</div>
+    </div>
+    <div class="form-group">
+      <label>Expected Credit Amount</label>
+      <div class="phoneInput">
+        <div class="currencyCode" *ngIf="currency.code" [class]="doEdit?'currencyCodeDisabled':''">
+          <img [src]="pathSource+currency?.code?.toLowerCase()+'.png'" class="countrySelectFlag" />
+        </div>
+        <input [disabled]="doEdit" type="text" #exprectedCreditIn="ngModel" placeholder="Enter Credit Amount"
+          class="form-control phoneNumber" [(ngModel)]="expectedCredit" pattern="[1-9]{1}[0-9]{3,10}" />
+      </div>
+      <div class="inputErrMsg" *ngIf="exprectedCreditIn.touched && exprectedCreditIn.invalid">Enter Valid Credit Amount
+      </div>
+    </div>
+    <div class="bottomBar">
+      <button class="button" (click)="makeEdit(true)" *ngIf="doEdit">
+        Edit <mat-icon>edit</mat-icon>
+      </button>
+      <button class="button buttonSecondary" (click)="makeEdit(false)" *ngIf="!doEdit">
+        Discard
+      </button>
+      <button class="button" *ngIf="!doEdit" (click)="saveChanges()">
+        Save Changes
+      </button>
+    </div>
+  </div>
+</div>

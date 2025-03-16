@@ -1,0 +1,124 @@
+.header {
+  background: #3b72ab;
+  border-bottom: solid thin #edeff1;
+  display: flex;
+  align-content: center;
+  vertical-align: middle;
+  display: flex;
+  justify-content: space-between;
+  & .logoContainer {
+    width: 18%;
+    padding: 8px 2% 4px 2%;
+    & img {
+      height: 3rem;
+    }
+  }
+  & .userDetails {
+    padding: 0 16px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    column-gap: 1.5rem;
+    & .userDetailsBlock {
+      text-align: right;
+      justify-content: center;
+      display: flex;
+      flex-direction: column;
+      & span {
+        color: #fff;
+        font-size: 12px;
+      }
+      & div {
+        color: #fff;
+        font-weight: 500;
+        margin-top: -4px;
+      }
+    }
+    & .signOut {
+      color: #fff;
+      padding: 6px 0;
+      cursor: pointer;
+      & mat-icon {
+        font-size: 32px;
+      }
+    }
+  }
+}
+.slideBar {
+  width: 18%;
+  background: #fff;
+  height: 92vh;
+  float: left;
+  overflow-y: auto;
+
+  & mat-list-item {
+    height: 48px;
+    display: flex;
+    color: #919293;
+    cursor: pointer;
+    font-weight: 500;
+    & mat-icon {
+      padding-right: 10px;
+    }
+    &.active {
+      background: #eaf4fa;
+      color: #004d7e !important;
+      & .mat-list-item-content {
+        color: #004d7e !important;
+      }
+      & mat-icon {
+        color: #004d7e;
+      }
+    }
+  }
+  & mat-list-item:hover {
+    background: #eaf4fa;
+    color: #37476c;
+  }
+}
+.online-status {
+  color: red;
+
+  &.online {
+    color: green;
+  }
+}
+.mobile-toggle-menu {
+  display: none;
+}
+@media only screen and (max-width: 600px) {
+  .slideBar {
+    width: 75%;
+    position: absolute;
+    z-index: 999999;
+    left: -75%;
+  }
+  .mobile-toggle {
+    display: block;
+  }
+  .userDetailsBlock {
+    display: none !important;
+  }
+  .mobile-toggle-menu {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-left: 1rem;
+  }
+  .nav.slideBar.openMenu {
+    left: 0 !important;
+    transition: 0.5s ease-in;
+  }
+  .nav.slideBar.closeMenu {
+    left: -75% !important;
+    transition: 0.5s ease-out;
+  }
+  .menuwrapper {
+    position: fixed;
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 999999;
+  }
+}

@@ -1,0 +1,162 @@
+.userLogin {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  background: #fff;
+  & .logoSection {
+    width: 50%;
+    height: 100vh;
+    background-color: #eaf4fa;
+    background-image: url(../../../assets/images/wellness-bg.png);
+    background-size: 90%;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    & .logo {
+      margin-top: 0rem;
+      margin-left: 2rem;
+      height: 8rem;
+    }
+  }
+  & .loginBlock {
+    min-width: 300px;
+    margin-top: 10vw;
+    margin-left: 80px;
+    padding: 10px;
+
+    & .icon {
+      & img {
+        width: 60%;
+      }
+    }
+    & .loginContent {
+      & h2 {
+        font-size: 40px;
+        margin-top: 20px;
+      }
+      & span {
+        color: #5d5e5e;
+        font-size: 20px;
+      }
+      & .form-group {
+        margin-top: auto;
+        & input {
+          background: #f4f5f7;
+          border-radius: 8px;
+          margin-top: 18px;
+          border: 1px solid #e1e3e4;
+          padding: 12px 10px;
+          width: 92%;
+          border-radius: 8px;
+        }
+        & button {
+          background: #3b72ab;
+          border-radius: 6px;
+          color: #fff;
+          padding: 12px 10px;
+          width: 98%;
+          border: none;
+          margin-top: 16px;
+          cursor: pointer;
+          &:disabled {
+            background: #d5d7d9;
+            color: #747576;
+            cursor: not-allowed;
+          }
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+        & .error {
+          font-size: 12px;
+          font-weight: 500;
+          color: red;
+          padding-left: 4px;
+        }
+        & .forgotPass {
+          color: #3b72ab;
+          font-size: 14px;
+          cursor: pointer;
+          float: right;
+          margin-right: 10px;
+          margin-top: 4px;
+        }
+      }
+      & .resetPassword {
+        margin-top: 10px;
+      }
+    }
+  }
+}
+@media only screen and (max-width: 600px) {
+  .userLogin {
+    flex-flow: column;
+
+    & .logoSection {
+      width: 100%;
+      background: transparent;
+      height: 30vh;
+    }
+    & .loginBlock {
+      width: 90%;
+      margin: 0 auto;
+    }
+  }
+  .login {
+    background: url(../../../assets/images/wellness-bg.png);
+    background-size: 134%;
+    background-position: -6vh 38vh;
+    background-repeat: no-repeat;
+    & .loginBlock {
+      float: none !important;
+      margin: 0 auto !important;
+      & .icon {
+        & img {
+          width: auto !important;
+          height: 30px !important;
+          margin: 10px 0 0 10px !important;
+        }
+      }
+    }
+    & .loginContent {
+      width: 90%;
+      display: block;
+      margin: 0 auto;
+      margin-top: 12vh;
+      & h2 {
+        font-size: 28px !important;
+      }
+    }
+    & .aboutusBtn {
+      top: 22px !important;
+      right: 10px !important;
+      & a {
+        padding: 10px 16px !important;
+        font-size: 14px !important;
+      }
+    }
+  }
+}
+.or-seprator {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  position: relative;
+
+  &::before {
+    display: block;
+    content: " ";
+    width: 100%;
+    border: solid thin #ddd;
+  }
+  &::after {
+    content: "OR";
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    top: -0.5rem;
+    background: #fff;
+    display: inline-block;
+    width: 3rem;
+    margin: 0 auto;
+  }
+}

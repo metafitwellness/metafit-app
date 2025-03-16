@@ -1,0 +1,34 @@
+<div class="modal">
+  <div class="heading">
+    Upload {{ data.title | titlecase }}
+  </div>
+  <div mat-dialog-close class="close">
+    <mat-icon>close</mat-icon>
+  </div>
+  <div class="uploadPlaceholderBlock" *ngIf="!uploadFile">
+    <label for="uploadFileIn" (fileDropped)="postFile($event, 'dragged')">
+      <div class="uploadPlaceholder">
+        <mat-icon>cloud_upload</mat-icon>
+        <b>Drop copy of {{ data.title | lowercase }} here or click to upload</b>
+        <span>(pdf or jpg files only)</span>
+      </div>
+      <input id="uploadFileIn" type="file" (change)="postFile($event, 'select')" accept="application/pdf" />
+    </label>
+  </div>
+
+  <div class="form-group" *ngIf="uploadFile && !(data.inputTitle == 'disabled')">
+    <label>Enter {{ data.inputTitle }}</label>
+    <input class="form-control" type="{{ data.type == 'number'?'number':'text' }}"
+      placeholder="Enter {{ data.inputTitle }}" [(ngModel)]="inputValue" />
+  </div>
+
+  <div class="form-group" *ngIf="uploadFile && (data.inputTitle == 'disabled')">
+    <label>File Name</label>
+    <input disabled class="form-control" [(ngModel)]="uploadFile" />
+  </div>
+
+  <div class="buttons" *ngIf="uploadFile">
+    <button mat-dialog-close class="cancel">Cancel</button>
+    <button class="confirm" [disabled]="!(inputValue)" (click)="confirm()">Upload</button>
+  </div>
+</div>

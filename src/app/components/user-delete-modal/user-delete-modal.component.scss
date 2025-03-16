@@ -1,0 +1,90 @@
+.modal{
+  position: relative;
+  width: 420px;
+  & .heading{
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  & .subHeading{
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+  & .close{
+    position: absolute;
+    right: 0px;
+    top: 0;
+    cursor: pointer;
+    & mat-icon{
+      color: #BDBDBD;
+    }
+  }
+  & p{
+    margin-top: 18px;
+  }
+  & .buttons{
+    margin-top: 92px;
+    float: right;
+    & .cancel{
+      color: #D92E2E;
+      background: none;
+      border: none;
+      padding: 10px 14px;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+    & .confirm{
+      color: #fff;
+      background: #0075BE;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin-right: 10px;
+      cursor: pointer;
+      &:disabled{
+        opacity: 0.6;
+        cursor:not-allowed;
+      }
+    }
+  }
+  & .form-group {
+    margin-top: 20px;
+    & label {
+      width: 100%;
+      display: block;
+      color: #000;
+      margin-bottom: 6px;
+    }
+    & input {
+      background: #f4f5f7;
+      border: 1px solid #f4f5f7;
+      border-radius: 6px;
+      padding: 10px 16px;
+      width: 92%;
+    }
+  }
+  & .radioOptions{
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    & .heading{
+      font-size: 16px;
+      margin: 0;
+    }
+    & label{
+      cursor: pointer;
+    }
+    & p{
+      font-size: 14px;
+      margin: 0;
+    }
+    & input[type=radio]{
+      width: 22px;
+      height: 22px;
+      margin-right: 12px;
+    }
+    & input[type=radio]:focus-visible{
+      outline: none;
+    }
+  }
+}

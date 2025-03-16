@@ -1,0 +1,22 @@
+.header {
+  background: #fff;
+  padding: 10px 6%;
+  & .continer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    & .logo {
+      & img {
+        height: 46px;
+      }
+    }
+    & .cta {
+      color: #747576;
+      font-size: 16px;
+      & a {
+        color: #46a1da;
+        text-decoration: none;
+      }
+    }
+  }
+}

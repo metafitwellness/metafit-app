@@ -1,0 +1,30 @@
+.info-modal {
+  border-radius: 12px;
+  display: block;
+  margin: 8vh auto 0 auto;
+  width: 40%;
+  background: #fff;
+  text-align: center;
+  padding: 40px;
+  & .info-img {
+    width: 140px;
+  }
+  & h2 {
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 400;
+  }
+  & p {
+    color: #747576;
+    font-weight: 500;
+    line-height: 24px;
+  }
+  & b{
+    color: #000;
+    font-weight: 500;
+    line-height: 24px;
+  }
+  & .email{
+    color :#0075BE;
+  }
+}

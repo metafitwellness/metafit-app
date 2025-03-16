@@ -1,0 +1,12 @@
+.search-container{
+  display: flex;
+  justify-self: end;
+  column-gap: 1rem;
+}
+.main{
+  background: #fff;
+}
+.no-records-found {
+  padding: 1rem;
+  text-align: center;
+}

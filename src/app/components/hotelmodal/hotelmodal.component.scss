@@ -1,0 +1,133 @@
+.hotel-details {
+  width: 100%;
+  display: flow-root;
+}
+.hotel-details p {
+  width: 50%;
+  float: left;
+}
+.button-actions {
+  display: flex;
+  justify-content: end;
+}
+
+.image-preview-container {
+  display: flex;
+  gap: 10px;
+  padding-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.image-preview {
+  position: relative;
+}
+
+.image-preview img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+}
+
+.image-preview button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: red;
+  color: white;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+.image-upload-preview {
+  clear: both;
+}
+
+.profile-photo {
+  max-width: 200px;
+  max-height: 200px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.user-details {
+  margin-bottom: 20px;
+
+  & span {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+  }
+}
+
+.info-row {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.info-column {
+  width: 32%;
+  padding: 10px;
+}
+
+.social-media-list {
+  list-style-type: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  column-count: 2;
+}
+
+.social-media-list li {
+  margin-bottom: 5px;
+  width: 30%;
+
+  & a {
+    color: #000;
+    text-decoration: none;
+    & i {
+      font-size: 1.5rem;
+      margin-right: 0.5rem;
+    }
+  }
+}
+
+strong {
+  font-weight: bold;
+}
+
+/* Add media query for responsive layout */
+@media (max-width: 768px) {
+  .info-row {
+    flex-direction: column;
+  }
+
+  .info-column {
+    width: 100%;
+  }
+}
+
+.profileForm {
+  margin: 2rem 0;
+  & div {
+    display: flex;
+    column-gap: 1rem;
+    align-items: center;
+  }
+
+  & button {
+    height: 2.5rem;
+  }
+
+  & h2 {
+    width: 100%;
+  }
+}

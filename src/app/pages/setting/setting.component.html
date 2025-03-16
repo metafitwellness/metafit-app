@@ -1,0 +1,105 @@
+<app-header></app-header>
+<div class="main">
+  <div class="settingScreen">
+    <h2 class="pageHeader">Settings</h2>
+    <div class="filterBox">
+      <div class="">
+        <label>Search</label>
+        <input type="text" placeholder="Search" [(ngModel)]="searchFilter" (keyup)="filterTable()" />
+      </div>
+      <div class="">
+        <div class="invoiceButtonContainer">
+          <button class="addInvoice" (click)="addUser()">
+            <mat-icon>add</mat-icon>
+            <span>Add User</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <table mat-table [dataSource]="dataSource" matSort >
+      <template *ngFor="let index of displayedColumns">
+        <ng-container matColumnDef="designatory" *ngIf="index == 'designatory'">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ index.replace("_", " ").replace("_", " ") |
+            uppercase }} </th>
+          <td mat-cell *matCellDef="let element" [style.padding-left]="'10px'" >
+            <span >
+              {{ element.designation | titlecase }}
+            </span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="customer_name" *ngIf="index == 'customer_name'">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ index.replace("_", " ").replace("_", " ") |
+            uppercase }} </th>
+          <td mat-cell *matCellDef="let element" [style.padding-left]="'10px'" >
+            <span class="customerLink" [routerLink]="'update-user/'+element.id" >
+              {{ element.name | titlecase }}
+            </span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="credit_limit" *ngIf="index == 'credit_limit'">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ index.replace("_", " ").replace("_", " ") |
+            uppercase }} </th>
+          <td mat-cell *matCellDef="let element">
+            <span >
+              {{ element.creditLimit | uppercase }}
+            </span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="expiry_date" *ngIf="index == 'expiry_date'">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ index.replace("_", " ").replace("_", " ") |
+            uppercase }} </th>
+          <td mat-cell *matCellDef="let element">
+            <span >
+              {{ element.expiryDate | date:'dd/MM/YYYY' }}
+            </span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="invoice_amount" *ngIf="index == 'invoice_amount'">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ index.replace("_", " ").replace("_", " ") |
+            uppercase }} </th>
+          <td mat-cell *matCellDef="let element">
+            <span >
+              {{ element.invoiceAmount | number:'1.2-2' }}
+            </span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="email_id" *ngIf="index == 'email_id'">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ index.replace("_", " ").replace("_", " ") |
+            uppercase }} </th>
+          <td mat-cell *matCellDef="let element">
+            <span >
+              {{ element.emailId }}
+            </span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="status" *ngIf="index == 'status'">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ index.replace("_", " ").replace("_", " ") |
+            uppercase }} </th>
+          <td mat-cell *matCellDef="let element">
+            <span >
+              <mat-slide-toggle [disabled]="clientId == element.id" [checked]="element.active == 1?true:false"  (change)="updateStatus(element.id)" ></mat-slide-toggle>
+            </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="{{ index }}" #others
+          *ngIf="!['customer_name', 'designatory', 'credit_limit', 'expiry_date', 'email_id', 'status', 'invoice_amount'].includes(index)">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ index.replace("_", " ").replace("_", " ") | uppercase }}
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <p *ngIf="element[index]">
+              {{element[index]}}
+            </p>
+            <span *ngIf="!element[index]">N/A</span>
+          </td>
+          <button mat-raised-button #success>Basic</button>
+        </ng-container>
+      </template>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <mat-paginator #paginator [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

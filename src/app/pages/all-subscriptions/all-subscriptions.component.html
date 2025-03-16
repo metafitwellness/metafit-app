@@ -1,0 +1,60 @@
+<app-header></app-header>
+
+<div class="main updateUser">
+  <div class="backBtn" [routerLink]="'/'"><mat-icon>arrow_back</mat-icon> Back</div>
+  <div class="pageHeader">All Subscriptions</div>
+
+  <mat-form-field appearance="standard" class="align-right-filter">
+    <mat-label>Search</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Search">
+  </mat-form-field>
+
+  <table mat-table [dataSource]="dataSource" matSort class="mat-table">
+
+    <ng-container matColumnDef="hotelName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Vendor Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="month_left">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Month Left </th>
+      <td mat-cell *matCellDef="let element"> {{element.remaining_count}} / {{element.total_count}} </td>
+    </ng-container>
+
+    <!-- Subscription ID Column -->
+    <ng-container matColumnDef="subscriptionID">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Subscription ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.subscriptionId}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="plan">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Plan </th>
+      <td mat-cell *matCellDef="let element"> {{element.plan}} </td>
+    </ng-container>
+
+    <!-- Plan ID Column -->
+    <ng-container matColumnDef="planId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Plan ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.planId}} </td>
+    </ng-container>
+
+    <!-- Date Added Column -->
+    <ng-container matColumnDef="dateAdded">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Date Added </th>
+      <td mat-cell *matCellDef="let element"> {{element.dateAdded | date}} </td>
+    </ng-container>
+
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+      <td mat-cell *matCellDef="let element"> {{element.status | titlecase}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <!-- Pagination -->
+  <mat-paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>

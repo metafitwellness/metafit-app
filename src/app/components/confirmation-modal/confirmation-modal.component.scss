@@ -1,0 +1,69 @@
+.modal {
+  position: relative;
+  width: 420px;
+  & .heading {
+    font-size: 24px;
+    font-weight: 500;
+  }
+  & .close {
+    position: absolute;
+    right: 0px;
+    top: 0;
+    cursor: pointer;
+    & mat-icon {
+      color: #bdbdbd;
+    }
+  }
+  & p {
+    margin-top: 18px;
+    &.subText {
+      font-size: 16px;
+    }
+    &.subText2 {
+      color: #747576;
+      margin-top: 2px;
+      font-size: 12px;
+    }
+  }
+  & .buttons {
+    margin-top: 92px;
+    float: right;
+    & .cancel {
+      color: #d92e2e;
+      background: none;
+      border: none;
+      padding: 10px 14px;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+    & .confirm {
+      color: #fff;
+      background: #0075be;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 14px;
+      margin-right: 10px;
+      cursor: pointer;
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+  }
+  & .form-group {
+    margin-top: 20px;
+    & label {
+      width: 100%;
+      display: block;
+      color: #000;
+      margin-bottom: 6px;
+    }
+    & input {
+      background: #f4f5f7;
+      border: 1px solid #f4f5f7;
+      border-radius: 6px;
+      padding: 10px 16px;
+      width: 92%;
+    }
+  }
+}

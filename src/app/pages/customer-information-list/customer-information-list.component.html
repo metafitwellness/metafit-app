@@ -1,0 +1,131 @@
+<app-header></app-header>
+<div class="main">
+  <div class="customerInformationSystem">
+    <h2 class="pageHeader">Customer Information System</h2>
+    <div class="filterBox">
+      <div class="">
+        <label>Search</label>
+        <input type="text" placeholder="Search by Invoice Number" [(ngModel)]="applicationFilter" (keyup)="filterTable()" />
+      </div>
+      <div class="">
+        <label>Application Status</label>
+        <select [(ngModel)]="applicationStatus" (change)="filterTable()">
+          <option value="">All</option>
+          <option>Registered</option>
+          <option>Rejected</option>
+          <option>KYC Pending</option>
+          <option>KYC Processing</option>
+          <option>Limit Pending</option>
+          <option>Limit Added</option>
+          <option>Active</option>
+        </select>
+      </div>
+      <div class="">
+        <label>Account Status</label>
+        <select [(ngModel)]="accountStatus" (change)="filterTable()">
+          <option value="">All</option>
+          <option value="1">Active</option>
+          <option value="0">Inactive</option>
+        </select>
+      </div>
+    </div>
+    <table mat-table [dataSource]="dataSource" matSort >
+      <template *ngFor="let index of displayedColumns">
+        <ng-container matColumnDef="applicationStatus" *ngIf="index == 'applicationStatus'">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Application Status </th>
+          <td mat-cell *matCellDef="let element">
+            <span class="borders" [class]="element.status">
+              <i class="icons" [class]="element.status"></i>
+              {{ element.status.replace("_", " ").replace("_", " ") | titlecase }}
+            </span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="accountStatus" *ngIf="index == 'accountStatus'">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Account Status </th>
+          <td mat-cell *matCellDef="let element">
+            <span class="statusBlocks" [class]="element.active?'active':'inactive'">
+              {{ element.active?'Active':'Inactive' | titlecase }}
+            </span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="uploaded_on" *ngIf="index == 'uploaded_on'">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ index.replace("_", " ").replace("_", " ") |
+            uppercase }} </th>
+          <td mat-cell *matCellDef="let element">
+            <span >
+              {{ element.uploadedOn | date : 'dd/MM/yyyy' }}
+            </span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="customer_name" *ngIf="index == 'customer_name'">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ index.replace("_", " ").replace("_", " ") |
+            uppercase }} </th>
+          <td mat-cell *matCellDef="let element" [style.padding-left]="'10px'" >
+            <span >
+              {{ element.name | titlecase }}
+            </span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="ref_number" *ngIf="index == 'ref_number'">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'Reference no'.replace("_", " ").replace("_", " ") |
+            uppercase }} </th>
+          <td mat-cell *matCellDef="let element">
+            <span class="invoiceNumber" routerLink="/invoice-credit-system/{{ element.referenceNo }}">
+              {{ element.referenceNo | uppercase }}
+            </span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="businessName" *ngIf="index == 'businessName'">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>BUSINESS NAME</th>
+          <td mat-cell *matCellDef="let element">
+            <span class="invoiceNumber" routerLink="/customer-information/{{ element.userId == null?element.id:element.userId }}{{ element.userId == null?'/temp':'' }}">
+              {{ element.businessName | uppercase }}
+            </span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="emailId" *ngIf="index == 'emailId'">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>EMAIL ID</th>
+          <td mat-cell *matCellDef="let element">
+            <span >
+              {{ element.emailId }}
+            </span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="registrationDate" *ngIf="index == 'registrationDate'">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>REGISTRATION DATE</th>
+          <td mat-cell *matCellDef="let element">
+            <span >
+              {{ element.addedOn | date:'dd/MM/YYYY' }}
+            </span>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="last_transaction_date" *ngIf="index == 'last_transaction_date'">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>LAST TRANSACTION DATE</th>
+          <td mat-cell *matCellDef="let element">
+            <span >
+              {{ element.last_transaction_date?(element.last_transaction_date | date:'dd/MM/YYYY'):'-' }}
+            </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="{{ index }}" #others
+          *ngIf="!['accountStatus', 'applicationStatus', 'businessName', 'emailId', 'registrationDate', 'last_transaction_date', 'invoice_amount'].includes(index)">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>
+            {{ index.replace("_", " ").replace("_", " ") | uppercase }}
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <p *ngIf="element[index]">
+              {{element[index]}}
+            </p>
+            <span *ngIf="!element[index]">N/A</span>
+          </td>
+          <button mat-raised-button #success>Basic</button>
+        </ng-container>
+      </template>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <mat-paginator #paginator [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

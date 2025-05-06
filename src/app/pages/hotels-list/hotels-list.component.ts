@@ -130,4 +130,16 @@ export class HotelsListComponent implements OnInit, AfterViewInit {
         return 'Unknown Status';
     }
   }
+
+  exportToPDF() {
+    this.usersService.printPdf('reportBlock', 'Report', '', '', []);
+  }
+
+  printTableData() {
+    this.usersService.printPdf('reportBlock', 'Report', '', '', [], true);
+  }
+
+  exportToExcel() {
+    this.usersService.exportToExcel('reportBlock', 'Report');
+  }
 }

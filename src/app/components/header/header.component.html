@@ -34,39 +34,44 @@
       My Subscriptions
     </mat-list-item>
 
-    <mat-list-item *ngIf="isAdmin" class="navList" routerLink="/hotels" routerLinkActive="active">
+    <mat-list-item *ngIf="isAdmin" class="navList" routerLink="/vendors" routerLinkActive="active">
       <mat-icon>groups</mat-icon>
       Vendors
     </mat-list-item>
-    <mat-list-item *ngIf="isAdmin" class="navList" routerLink="/hotels" [queryParams]="{accountStatus: 'onboarded'}"
+    <mat-list-item *ngIf="isAdmin" class="navList" routerLink="/vendors" [queryParams]="{accountStatus: 'onboarded'}"
       routerLinkActive="active">
       <mat-icon>info</mat-icon>
       Onboarded Vendors (Profile Pending)
     </mat-list-item>
-    <mat-list-item *ngIf="isAdmin" class="navList" routerLink="/hotels" [queryParams]="{status: 'pending'}"
+    <mat-list-item *ngIf="isAdmin" class="navList" routerLink="/vendors" [queryParams]="{status: 'pending'}"
       routerLinkActive="active">
       <mat-icon>info</mat-icon>
       Pending Vendors
     </mat-list-item>
-    <mat-list-item *ngIf="isAdmin" class="navList" routerLink="/hotels" [queryParams]="{status: 'rejected'}"
+    <mat-list-item *ngIf="isAdmin" class="navList" routerLink="/vendors" [queryParams]="{status: 'rejected'}"
       routerLinkActive="active">
       <mat-icon>cancel</mat-icon>
       Rejected Vendors
     </mat-list-item>
-    <mat-list-item *ngIf="isAdmin" class="navList" routerLink="/hotels" [queryParams]="{status: 'approved'}"
+    <mat-list-item *ngIf="isAdmin" class="navList" routerLink="/vendors" [queryParams]="{status: 'approved'}"
       routerLinkActive="active">
       <mat-icon>groups</mat-icon>
       Approved Vendors
     </mat-list-item>
-    <mat-list-item *ngIf="isAdmin" class="navList" routerLink="/hotels" [queryParams]="{accountStatus: 'verified'}"
+    <mat-list-item *ngIf="isAdmin" class="navList" routerLink="/vendors" [queryParams]="{accountStatus: 'verified'}"
       routerLinkActive="active">
       <mat-icon>groups</mat-icon>
       Pending Subscription
     </mat-list-item>
-    <mat-list-item *ngIf="isAdmin" class="navList" routerLink="/hotels" [queryParams]="{accountstatus: 'active'}"
+    <mat-list-item *ngIf="isAdmin" class="navList" routerLink="/vendors" [queryParams]="{accountstatus: 'active'}"
       routerLinkActive="active">
       <mat-icon>groups</mat-icon>
       Active Vendors
+    </mat-list-item>
+    <mat-list-item *ngIf="isAdmin" class="navList" routerLink="/vendors" [queryParams]="{accountstatus: 'expired'}"
+      routerLinkActive="active">
+      <mat-icon>groups</mat-icon>
+      Expired Vendors
     </mat-list-item>
     <mat-list-item *ngIf="isAdmin" class="navList" routerLink="/hotels-otp-pending" routerLinkActive="active">
       <mat-icon>info</mat-icon>
@@ -87,6 +92,14 @@
     <mat-list-item *ngIf="isAdmin" class="navList" routerLink="/segments" routerLinkActive="active">
       <mat-icon>category</mat-icon>
       Manage Segments
+    </mat-list-item>
+    <mat-list-item *ngIf="isAdmin" class="navList" routerLink="/blogs" routerLinkActive="active">
+      <mat-icon>category</mat-icon>
+      Manage Blogs
+    </mat-list-item>
+    <mat-list-item *ngIf="isAdmin" class="navList" routerLink="/footer-link" routerLinkActive="active">
+      <mat-icon>category</mat-icon>
+      Manage Seo Pages
     </mat-list-item>
 
     <mat-list-item class="navList" (click)="logout()">

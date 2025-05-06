@@ -23,10 +23,15 @@
     "@angular/platform-browser-dynamic": "~14.3.0",
     "@angular/router": "~14.3.0",
     "hourly-hotel-deals": "file:",
+    "html2canvas": "^1.4.1",
+    "html2pdf.js": "^0.10.3",
+    "jspdf": "^3.0.1",
+    "jspdf-autotable": "^5.0.2",
     "meta-fit-web": "file:",
     "rxjs": "~7.5.0",
     "toggle-app": "file:",
     "tslib": "^2.3.0",
+    "xlsx": "^0.18.5",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

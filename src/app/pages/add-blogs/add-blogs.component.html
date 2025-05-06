@@ -1,0 +1,59 @@
+<app-header></app-header>
+<div class="main updateUser">
+  <div class="backBtn" [routerLink]="'/'">
+    <mat-icon>arrow_back</mat-icon> Back
+  </div>
+
+  <h2 class="pageHeader">{{ isUpdate ? 'Update' : 'Add' }} Blog</h2>
+
+  <form [formGroup]="seoForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data" class="formBlock">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" type="text" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>SEO URL</mat-label>
+      <input matInput formControlName="url" type="text" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="half-width">
+      <mat-label>Date</mat-label>
+      <input matInput formControlName="date" type="date" />
+    </mat-form-field>
+
+    <div>
+      <mat-label>Description</mat-label>
+      <textarea id="description"></textarea>
+    </div>
+
+    <mat-form-field appearance="fill" class="half-width">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status">
+        <mat-option value="active">Active</mat-option>
+        <mat-option value="inactive">Inactive</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="half-width">
+      <mat-label>Footer Status</mat-label>
+      <mat-select formControlName="footer_status">
+        <mat-option value="yes">Yes</mat-option>
+        <mat-option value="no">No</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="file-upload img">
+      <label for="image-upload">Upload Image</label><br />
+      <input id="image-upload" type="file" (change)="onFileChange($event)" />
+    </div>
+    <div class="half-width">
+      <img *ngIf="imagePath" [src]="userService.urls + 'uploads/blogs/' + imagePath" alt="Image Preview"
+        class="imgPreview" />
+    </div>
+
+    <button mat-raised-button color="primary" type="submit" class="submitBtn">
+      {{ isUpdate ? 'Update' : 'Submit' }}
+    </button>
+  </form>
+</div>

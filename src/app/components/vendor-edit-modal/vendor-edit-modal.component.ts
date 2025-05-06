@@ -16,6 +16,7 @@ export class VendorEditModalComponent implements OnInit {
 
   segmentName: string = '';
   cityName: string = '';
+  uploadedImages: any = {};
 
   constructor(
     private fb: FormBuilder,
@@ -48,7 +49,7 @@ export class VendorEditModalComponent implements OnInit {
       passoutYear: [hotelData.passoutYear || ''],
       yearsOfExperience: [hotelData.yearsOfExperience || ''],
       city_name: [hotelData.city_name || '', Validators.required],
-      segment_name: [hotelData.segment_name || '', Validators.required],
+      segment_name: [[], Validators.required],
 
       instagram_url: [hotelData.instagram_url || ''],
       linkedin_url: [hotelData.linkedin_url || ''],
@@ -57,6 +58,11 @@ export class VendorEditModalComponent implements OnInit {
       website_url: [hotelData.website_url || ''],
       google_map_url: [hotelData.google_map_url || ''],
       alternative_contact: [hotelData.alternative_contact || '', [Validators.pattern(/^[0-9]{10}$/)]],
+      self_photo: [null],
+      aadhar_photo: [null],
+      clinic_photo: [null],
+      pan_card_photo_front: [null],
+      pan_card_photo_back: [null],
     });
     this.loadDropdownData();
   }
@@ -70,15 +76,11 @@ export class VendorEditModalComponent implements OnInit {
         this.cityList = res.res.cities || [];
         this.segmentList = res.res.segments || [];
 
-        // After loading the dropdown lists, load vendor data
         this.loadVendorData();
       }
     });
   }
 
-  /**
-   * Load vendor data from API and set selected dropdown values
-   */
   loadVendorData() {
     this.usersService.userData(this.data.hotelData.user_id).subscribe((res: any) => {
       if (res.status == 200 && res.data) {
@@ -105,8 +107,13 @@ export class VendorEditModalComponent implements OnInit {
           website_url: this.vendorData.website_url || '',
           google_map_url: this.vendorData.google_map_url || '',
           alternative_contact: this.vendorData.alternative_contact || '',
-        });
 
+          self_photo: this.usersService.imagePath(this.vendorData.self_photo) || '',
+          aadhar_photo: this.usersService.imagePath(this.vendorData.aadhar_photo) || '',
+          clinic_photo: this.usersService.imagePath(this.vendorData.clinic_photo) || '',
+          pan_card_photo_front: this.usersService.imagePath(this.vendorData.pan_card_photo_front) || '',
+          pan_card_photo_back: this.usersService.imagePath(this.vendorData.pan_card_photo_back) || '',
+        });
 
         this.setSelectedSegment();
         this.setSelectedCity();
@@ -116,12 +123,20 @@ export class VendorEditModalComponent implements OnInit {
 
   setSelectedSegment() {
     if (!this.segmentList.length || !this.vendorData.segment_name) return;
+    const segmentNames = this.vendorData.segment_name.split(',').map((name: any) => name.trim().toLowerCase());
+    const selectedSegmentIds = this.segmentList
+      .filter((segment: any) => {
+        return segmentNames.includes(segment.segement.trim().toLowerCase());
+      })
+      .map(segment => segment.id);
 
-    const selectedSegment = this.segmentList.find(segment => segment.segement === this.vendorData.segment_name);
-    if (selectedSegment) {
-      this.vendorForm.patchValue({ segment_name: selectedSegment.id });
+    if (selectedSegmentIds.length) {
+      this.vendorForm.patchValue({ segment_name: selectedSegmentIds });
     }
   }
+
+
+
 
   setSelectedCity() {
     if (!this.cityList.length || !this.vendorData.city_name) return;
@@ -142,20 +157,50 @@ export class VendorEditModalComponent implements OnInit {
   }
 
   onSubmit() {
-    if(confirm("Confirm Changes?, This Can't be undone!")){
+    if (confirm("Confirm Changes?, This Can't be undone!")) {
       if (this.vendorForm.valid) {
+        const formData = new FormData();
         const updatedData = { id: this.vendorForm.value.user_id, ...this.vendorForm.value };
-        this.usersService.update_user_admin(updatedData).subscribe(
+        Object.keys(this.uploadedImages).forEach((key) => {
+          const file = this.uploadedImages[key];
+          if (file instanceof File) {
+            formData.append(key, file, file.name);
+          }
+        });
+
+        Object.keys(updatedData).forEach(key => {
+          formData.append(key, updatedData[key]);
+        });
+        this.usersService.update_user_admin(formData).subscribe(
           (res) => this.dialogRef.close(res),
           (err) => console.error('Error updating vendor:', err)
         );
       }
-    }else{
-      return;
     }
   }
 
+
   closeModal() {
     this.dialogRef.close();
+  }
+
+  onFileChange(event: any, field: string): void {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.uploadedImages[field] = reader.result as string;
+      };
+      reader.readAsDataURL(file);
+
+      this.vendorForm.get(field)?.setValue(file);
+    }
+  }
+
+  showImage(imagePath: string) {
+    if (typeof imagePath === 'string' && imagePath) {
+      return true;
+    }
+    return false;
   }
 }

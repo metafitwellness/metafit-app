@@ -51,4 +51,16 @@ export class AllSubscriptionsComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator.firstPage();  // Reset paginator to first page after filtering
     }
   }
+
+  exportToPDF() {
+    this.usersService.printPdf('reportBlock', 'Report', '', '', []);
+  }
+
+  printTableData() {
+    this.usersService.printPdf('reportBlock', 'Report', '', '', [], true);
+  }
+
+  exportToExcel() {
+    this.usersService.exportToExcel('reportBlock', 'Report');
+  }
 }

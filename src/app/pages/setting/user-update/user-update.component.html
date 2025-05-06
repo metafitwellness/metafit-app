@@ -123,6 +123,14 @@
         <input type="text" [disabled]="!editForm" placeholder="Google Map URL" [(ngModel)]="googleMapUrl" />
       </div>
 
+      <div class="col-md-12">
+        <div class="form-group">
+          <label>Google Location</label>
+          <input placeholder="Google Location" [disabled]="!editForm" type="text" id="googleLocationInput"
+            #googleLocationIn [(ngModel)]="googleLocation" required (input)="onLocationInput($event)" />
+        </div>
+      </div>
+
       <!-- File uploads for personal documents with preview -->
       <div class="form-group">
         <label>Upload Self Photo</label>

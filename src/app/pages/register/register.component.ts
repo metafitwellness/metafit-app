@@ -80,7 +80,7 @@ export class RegisterComponent implements OnInit {
           this.phoneCode = this.countryList[0];
           this.cdr.detectChanges();
           this.route.queryParams.subscribe((arg: any) => {
-            if(arg.plan){
+            if (arg.plan) {
               this.plan = arg.plan;
               this.updatePlan();
             }
@@ -104,8 +104,11 @@ export class RegisterComponent implements OnInit {
     this.planName = `${this.planData.plan}`;
   }
   updateSegment() {
-    this.segmentName = this.segmentList.find((c: any) => c.id === this.segment)['segement'];
+    this.segmentName = this.segmentList
+      .filter((segment: any) => this.segment.includes(segment.id.toString()))  // Ensure ID is a string for comparison
+      .map((segment: any) => segment.segement);  // Get all matching segment names
   }
+
   doRegister(step = 0) {
     if (step == 1) {
       let data = {

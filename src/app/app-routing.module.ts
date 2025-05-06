@@ -29,6 +29,10 @@ import { HotelsOtpPendingComponent } from './pages/hotels-otp-pending/hotels-otp
 import { SegmentsComponent } from './pages/segments/segments.component';
 import { PurchasePlanComponent } from './pages/purchase-plan/purchase-plan.component';
 import { OnboardingAmountComponent } from './pages/onboarding-amount/onboarding-amount.component';
+import { FooterlinkComponent } from './pages/footerlink/footerlink.component';
+import { FooterlinkManageComponent } from './pages/footerlink-manage/footerlink-manage.component';
+import { AddBlogsComponent } from './pages/add-blogs/add-blogs.component';
+import { BlogsComponent } from './pages/blogs/blogs.component';
 
 
 const routes: Routes = [
@@ -46,13 +50,19 @@ const routes: Routes = [
   { path: 'subscribe', component: SubscribeComponent, canActivate: [UserGuard] },
   { path: 'purchase-plan', component: PurchasePlanComponent, canActivate: [UserGuard] },
 
-  { path: 'hotels', component: HotelsListComponent, canActivate: [AdminGuard] },
+  { path: 'vendors', component: HotelsListComponent, canActivate: [AdminGuard] },
   { path: 'hotels-otp-pending', component: HotelsOtpPendingComponent, canActivate: [AdminGuard] },
   { path: 'hotels/:ids', component: HotelsViewComponent, canActivate: [AdminGuard] },
   { path: 'all-subscriptions', component: AllSubscriptionsComponent, canActivate: [AdminGuard] },
   { path: 'cities', component: CitiesComponent, canActivate: [AdminGuard] },
   { path: 'segments', component: SegmentsComponent, canActivate: [AdminGuard] },
   { path: 'onboarding-amount', component: OnboardingAmountComponent, canActivate: [AdminGuard] },
+  { path: 'footer-link-add', component: FooterlinkComponent, canActivate: [AdminGuard] },
+  { path: 'footer-link-add/:id', component: FooterlinkComponent, canActivate: [AdminGuard] },
+  { path: 'add-blog', component: AddBlogsComponent, canActivate: [AdminGuard] },
+  { path: 'add-blog/:id', component: AddBlogsComponent, canActivate: [AdminGuard] },
+  { path: 'blogs', component: BlogsComponent, canActivate: [AdminGuard] },
+  { path: 'footer-link', component: FooterlinkManageComponent, canActivate: [AdminGuard] },
 
   //404
   { path: '**', component: NotFoundComponent }

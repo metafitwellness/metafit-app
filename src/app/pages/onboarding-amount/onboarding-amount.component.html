@@ -1,8 +1,14 @@
 <app-header></app-header>
 <div class="main ">
   <div class="backBtn" [routerLink]="'/'"><mat-icon>arrow_back</mat-icon> Back</div>
-  <div class="city-form">
+  <div class="city-form" id="reportBlock">
     <div class="pageHeader">Onboarding Payment List</div>
+
+    <div class="export-container">
+      <button color="primary" (click)="exportToExcel()" mat-button>Export</button>
+      <button color="primary" (click)="exportToPDF()" mat-button>Download PDF</button>
+      <button color="primary" (click)="printTableData()" mat-button>Print</button>
+    </div>
 
     <!-- Search Filter -->
     <div class="filter-container">

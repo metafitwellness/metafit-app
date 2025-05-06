@@ -14,7 +14,7 @@
       </div>
       <div class="form-group">
         <label>Segment</label>
-        <mat-select #segmentIn="ngModel" [(ngModel)]="segment" placeholder="Select Segment" class="phoneCode"
+        <mat-select #segmentIn="ngModel" multiple [(ngModel)]="segment" placeholder="Select Segment" class="phoneCode"
           [value]="segment" (selectionChange)="updateSegment()">
           <mat-select-trigger class="mat-select-trigger">
             <span>{{segmentName}}</span>

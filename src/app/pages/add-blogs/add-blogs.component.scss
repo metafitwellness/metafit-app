@@ -1,0 +1,24 @@
+.full-width {
+  width: 100%;
+}
+.half-width {
+  width: calc(50% - 1rem);
+  margin-right: 1rem;
+  margin-top: 1rem;
+}
+.img{
+  margin-bottom: 1rem;
+}
+.submitBtn{
+  float: right;
+  margin-top: 1rem;
+  display: block;
+  margin-bottom: 5rem;
+}
+.formBlock{
+ margin-bottom: 8rem;
+}
+.imgPreview{
+  width: 60%;
+  margin-top: 0.5rem;
+}

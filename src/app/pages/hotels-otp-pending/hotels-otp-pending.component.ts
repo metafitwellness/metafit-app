@@ -88,4 +88,16 @@ export class HotelsOtpPendingComponent implements OnInit {
         return 'Unknown Status';
     }
   }
+
+  exportToPDF() {
+    this.usersService.printPdf('reportBlock', 'Report', '', '', []);
+  }
+
+  printTableData() {
+    this.usersService.printPdf('reportBlock', 'Report', '', '', [], true);
+  }
+
+  exportToExcel() {
+    this.usersService.exportToExcel('reportBlock', 'Report');
+  }
 }

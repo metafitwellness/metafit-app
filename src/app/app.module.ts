@@ -55,6 +55,10 @@ import { MakePaymentComponent } from './pages/make-payment/make-payment.componen
 import { PurchasePlanComponent } from './pages/purchase-plan/purchase-plan.component';
 import { OnboardingAmountComponent } from './pages/onboarding-amount/onboarding-amount.component';
 import { VendorEditModalComponent } from './components/vendor-edit-modal/vendor-edit-modal.component';
+import { FooterlinkComponent } from './pages/footerlink/footerlink.component';
+import { FooterlinkManageComponent } from './pages/footerlink-manage/footerlink-manage.component';
+import { BlogsComponent } from './pages/blogs/blogs.component';
+import { AddBlogsComponent } from './pages/add-blogs/add-blogs.component';
 
 @NgModule({
   declarations: [
@@ -105,7 +109,11 @@ import { VendorEditModalComponent } from './components/vendor-edit-modal/vendor-
     MakePaymentComponent,
     PurchasePlanComponent,
     OnboardingAmountComponent,
-    VendorEditModalComponent
+    VendorEditModalComponent,
+    FooterlinkComponent,
+    FooterlinkManageComponent,
+    BlogsComponent,
+    AddBlogsComponent
   ],
   imports: [
     BrowserModule,

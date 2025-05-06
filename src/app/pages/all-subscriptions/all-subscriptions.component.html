@@ -1,8 +1,15 @@
 <app-header></app-header>
 
-<div class="main updateUser">
+<div class="main updateUser" id="reportBlock">
   <div class="backBtn" [routerLink]="'/'"><mat-icon>arrow_back</mat-icon> Back</div>
   <div class="pageHeader">All Subscriptions</div>
+
+
+  <div class="export-container">
+    <button color="primary" (click)="exportToExcel()" mat-button>Export</button>
+    <button color="primary" (click)="exportToPDF()" mat-button>Download PDF</button>
+    <button color="primary" (click)="printTableData()" mat-button>Print</button>
+  </div>
 
   <mat-form-field appearance="standard" class="align-right-filter">
     <mat-label>Search</mat-label>

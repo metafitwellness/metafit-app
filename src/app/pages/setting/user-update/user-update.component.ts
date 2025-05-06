@@ -2,15 +2,17 @@ import { MatDialog } from '@angular/material/dialog';
 import { InvoiceService } from './../../../services/invoice.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UsersService } from '../../../services/users.service';
-import { Component, OnInit, ChangeDetectorRef, ElementRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
 import { environment } from '../../../../environments/environment';
+
+declare var google: any;
 
 @Component({
   selector: 'app-user-update',
   templateUrl: './user-update.component.html',
   styleUrls: ['./user-update.component.scss']
 })
-export class UserUpdateComponent implements OnInit {
+export class UserUpdateComponent implements OnInit, AfterViewInit {
   reason: string = '';
 
   userId: number = 0;
@@ -65,6 +67,13 @@ export class UserUpdateComponent implements OnInit {
   passoutYears: number[] = [];
   yearsOfExperienceOptions: number[] = [];
 
+
+  @ViewChild('googleLocationIn') googleLocationIn: ElementRef;
+  googleLat: any = '';
+  googleLong: any = '';
+  googleLocation: any = '';
+
+
   constructor(
     private userService: UsersService,
     private route: ActivatedRoute,
@@ -82,6 +91,15 @@ export class UserUpdateComponent implements OnInit {
     this.initializePassoutYears();
     this.initializeExperienceOptions();
   }
+
+  ngAfterViewInit(): void {
+    if (this.googleLocationIn && this.googleLocationIn.nativeElement) {
+      this.initAutocomplete();
+    } else {
+      console.error('Google Location input not found.');
+    }
+  }
+
 
   async getUserData() {
     await this.userService.userData(this.userData.id).subscribe((res: any) => {
@@ -278,5 +296,23 @@ export class UserUpdateComponent implements OnInit {
     for (let i = 0; i <= 40; i++) {
       this.yearsOfExperienceOptions.push(i); // Adjust the maximum as necessary
     }
+  }
+
+  initAutocomplete() {
+    const input = this.googleLocationIn.nativeElement;  // Get the input field reference
+    const autocomplete = new google.maps.places.Autocomplete(input);
+
+    // Restrict autocomplete to a specific region (optional)
+    autocomplete.setFields(['address_components', 'geometry']);
+
+    autocomplete.addListener('place_changed', () => {
+      const place = autocomplete.getPlace();
+      if (place.geometry) {
+        this.googleLat = place.geometry.location.lat(); // You can save or use the formatted address
+        this.googleLong = place.geometry.location.lng();
+      }
+    });
+  }
+  onLocationInput(event: any) {
   }
 }
